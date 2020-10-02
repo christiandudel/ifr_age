@@ -9,6 +9,11 @@ library(httr)
 # Source
 url <- 'https://osf.io/7tnfh/download'
 
+# Create Data folder if necessary
+if (!"Data" %in% dir()){
+  dir.create("Data")
+}
+
 # Where to save
 filename <- 'Data/Output_5.zip'
 
@@ -19,17 +24,17 @@ GET(url, write_disk(filename, overwrite = TRUE))
 unzip(filename)
 
 # Load data 
-dat <- read_csv(filename,skip=3)
+Dat <- read_csv(filename,skip=3)
 
 
 ### Edit/restrict data ##############################################
 
 # Countries of interest
-countrylist <- c("Germany","USA")
+countrylist <- c("Germany","Belgium")
 region <- c("All")
 
 # Restrict country
-dat <- dat %>% filter(Country %in% countrylist & Region %in% region)
+dat <- Dat %>% filter(Country %in% countrylist & Region %in% region)
 
 # Restrict gender
 dat <- dat %>% filter(Sex=="b")
