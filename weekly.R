@@ -45,7 +45,7 @@ dat %>%
   geom_line()
   
 # Compare w total deaths by week, just to see how the peak timing relates
-plot_grid(p1, p2, labels = c('A', 'B'))
+plot_grid(p1, p2, labels = c('A', 'B'), ncol = 1)
 # interestingly the deaths peak before the IFR peaks.
 
 # dat %>% 
