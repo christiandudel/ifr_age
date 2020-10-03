@@ -2,14 +2,14 @@
 
   library(HMDHFDplus)
   library(tidyverse)
-  
+
   #us <- "username"
   #pw <- "password"
 
 
 ### Load data #######################################################
 
-  GerPop <- readHMDweb(CNTRY="DEUTNP","Exposures_1x1",us,pw)#Exposures_1x1 
+  GerPop <- readHMDweb(CNTRY="DEUTNP","Exposures_1x1",us,pw)
   USAPop <- readHMDweb(CNTRY="USA","Exposures_1x1",us,pw)
 
   
@@ -41,7 +41,6 @@
   scenario1 <- c(rep(0.23,50),rep(0.16,15),rep(0.14,nopen))
   scenario2 <- c(rep(0.20,50),rep(0.20,15),rep(0.20,nopen))
   scenario3 <- c(rep(0.26,50),rep(0.10,15),rep(0.06,nopen))
-  
 
 
 ### Calculate Germany ###############################################
