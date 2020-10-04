@@ -23,7 +23,7 @@ Our estimates come with considerable uncertainty. This, first, includes the unce
 
 ## Conclusions
 
-The IFR of COVID-19 in Germany could be considerably larger than the IFR of influenca. However, 
+The IFR of COVID-19 in Germany could be considerably larger than the IFR of influenca. However, our results come with considerable uncertainty, and in the future updated results based on improved and more complete data could potentially show diverging results.
 
 ## Code and data
 
