@@ -25,6 +25,7 @@
   # US population size, but not necessary for IFRs
   # USAPop$Total <- 100
   
+  
 ### Aggregate/open ended category ###################################
 
   open1 <- 85 # To reproduce Levin et al. set open1 > 80
