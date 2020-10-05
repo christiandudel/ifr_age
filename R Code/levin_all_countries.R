@@ -1,12 +1,22 @@
 library(tidyverse)
 library(readxl)
 
-# Importing population data from the WPP 2020, 
+# Importing population data for all countries from the 
+# UN World Population Prospects - Population Division, 
 # source: https://population.un.org/wpp/
+
 db <- read_xlsx("Data/WPP2019_POP_F07_1_POPULATION_BY_AGE_BOTH_SEXES.xlsx",
                 sheet = 1,
                 skip = 16)
 
+
+# defining maximum age, age interval, and open age interval 
+open1 <- 85 # To reproduce Levin et al. set open1 > 80
+maxage <- 100 # To reproduce Levin et al set maxage to 80
+interval <- 0.5 # Set to zero to reproduce Levin et al.
+openinterval <- 7
+
+# Selecting only countries and population for year 2020
 db2 <- db %>% 
   rename(Country = 3,
          year = 8) %>% 
@@ -23,16 +33,9 @@ db2 <- db %>%
   group_by(Country, Age) %>% 
   summarise(pop = sum(pop)) %>% 
   ungroup()
-  
-# defining maximum age, age interval, and open age interval 
-open1 <- 85 # To reproduce Levin et al. set open1 > 80
-maxage <- 100 # To reproduce Levin et al set maxage to 80
-interval <- 0.5 # Set to zero to reproduce Levin et al.
-openinterval <- 7
 
-# Estimating age-specific infection fatality rate (IFR), infection rates, 
-# and  overall IFR by country, according to the IFR formula and the three 
-# scenarios proposed by Levin et al. (2020),
+# Estimating age-specific infection fatality rate (IFR) and infection rates, 
+# according to the IFR formula and the three scenarios proposed by Levin et al. (2020),
 db3 <- db2 %>% 
   mutate(interval = ifelse(Age < open1, interval, openinterval),
          ifr = exp(-7.53 + 0.119 * (Age + interval)) / 100,
@@ -50,6 +53,7 @@ db3 <- db2 %>%
          s2_deaths = s2_infec * ifr,
          s3_deaths = s3_infec * ifr)
   
+# Calculating the overall IFR by country for each scenario 
 db4 <- db3 %>% 
   group_by(Country) %>% 
   summarise(s1_infec = sum(s1_infec),
