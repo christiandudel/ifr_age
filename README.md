@@ -32,8 +32,13 @@ All code needed to reproduce our findings can be found in the folder 'R Code'. A
 ## References
 
 [1] https://doi.org/10.1101/2020.07.23.20160895
+
 [2] https://doi.org/10.1371/journal.pone.0238904 
+
 [3] https://www.mortality.org/ 
+
 [4] https://dx.doi.org/10.4054/MPIDR-WP-2020-032  
+
 [5] https://arxiv.org/abs/2004.12836 
+
 [6] https://doi.org/10.1016/S1473-3099(20)30243-7 
