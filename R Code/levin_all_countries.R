@@ -1,9 +1,12 @@
 library(tidyverse)
 library(readxl)
 
-setwd("C:/Users/acosta/Desktop")
+open1 <- 85 # To reproduce Levin et al. set open1 > 80
+maxage <- 100 # To reproduce Levin et al set maxage to 80
+intervall <- 0.5 # Set to zero to reproduce Levin et al.
+openintervall <- 7
 
-db <- read_xlsx("WPP2019_POP_F07_1_POPULATION_BY_AGE_BOTH_SEXES.xlsx",
+db <- read_xlsx("Data/WPP2019_POP_F07_1_POPULATION_BY_AGE_BOTH_SEXES.xlsx",
                 sheet = 1,
                 skip = 16)
 
@@ -16,13 +19,18 @@ db2 <- db %>%
   gather(-Country, key = "Age", value = "pop") %>% 
   separate(Age, c("Age", "trash"), sep = "-") %>% 
   mutate(Age = ifelse(Age == "100+", "100", Age),
-         Age = as.numeric(Age),
+         Age = ifelse(as.numeric(Age) < open1, as.numeric(Age), open1),
          pop = as.numeric(pop) * 1000) %>% 
   arrange(Country, Age) %>% 
-  select(-trash)
+  select(-trash) %>% 
+  group_by(Country, Age) %>% 
+  summarise(pop = sum(pop)) %>% 
+  ungroup()
+  
 
 db3 <- db2 %>% 
-  mutate(ifr = exp(-7.53 + 0.119 * (Age + 2.5)) / 100,
+  mutate(intervall = ifelse(Age < open1, intervall, openintervall),
+         ifr = exp(-7.53 + 0.119 * (Age + intervall)) / 100,
          s1_ir = case_when(Age < 50 ~ 0.23,
                            Age >= 50 &   Age < 65 ~ 0.16,
                            Age >= 65 ~ 0.14),
@@ -35,7 +43,10 @@ db3 <- db2 %>%
          s3_infec = pop * s3_ir,
          s1_deaths = s1_infec * ifr,
          s2_deaths = s2_infec * ifr,
-         s3_deaths = s3_infec * ifr) %>% 
+         s3_deaths = s3_infec * ifr)
+  
+
+db4 <- db3 %>% 
   group_by(Country) %>% 
   summarise(s1_infec = sum(s1_infec),
             s1_deaths = sum(s1_deaths),
@@ -49,8 +60,47 @@ db3 <- db2 %>%
   ungroup()%>% 
   gather(-Country, key = 'Measure', value = "Value") %>% 
   separate(Measure, c("Scenario", "Measure"), sep = "_")
-        
-db3 %>% 
-  filter(Measure == "ifr")
+
+unique(db4$Country)
+
+countries <- c("Brazil", 
+               "Mexico", 
+               "United States of America", 
+               "Italy", 
+               "Germany", 
+               "China", 
+               "India", 
+               "Nigeria",
+               "Russia",
+               "Iran",
+               "Colombia",
+               "Morocco",
+               "Spain",
+               "France",
+               "United Kingdom",
+               "Japan",
+               "Ethiopia",
+               "South Africa")
+
+db4 %>% 
+  filter(Measure == "ifr",
+         Country %in% countries) %>% 
   ggplot()+
-  geom_point(aes(Measure, Country, col = Scenario))
+  geom_point(aes(Value, reorder(Country, Value), col = Scenario), size = 0.7)+
+  scale_x_continuous(breaks = seq(-2, 3, 0.5))+
+  scale_color_manual(values = c('#e41a1c', '#377eb8', '#4daf4a'))+
+  labs(x = "Overall Infection Fatality Rate", y = "Country")+
+  theme_bw()+
+  theme(legend.key.size = unit(0.3, "cm"),
+        legend.text = element_text(size = 7),
+        legend.title = element_text(size = 8), 
+        axis.text.x = element_text(size = 7),
+        axis.text.y = element_text(size = 7),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8))
+
+ggsave("Figures/ifr_country.png", width = 5, height = 3, dpi = 600)
+
+  
+  
+  
