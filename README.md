@@ -1,4 +1,4 @@
-# Predicting total IFRs
+# Scenarios for the infection fatality rate in Germany
 
 ## Background
 
