@@ -19,7 +19,7 @@ The estimates of the total IFR for Germany range from 0.7% to 2.4%. This is cons
 
 ## Limitations
 
-Our estimates come with considerable uncertainty. This, first, includes the uncertainty as expressed through prediction intervals as provided above. Moreover, the age-specific IFR estimates of Levin et al. are based on a model and as such depend on several assumptions, and it is not clear whether they can be directly applied to Germany. Also, estimates of age-specific infection fatality rates coming from other studies sometimes differ considerably, in particular for higher ages which are very important for the final result [7]. Finally, the age-specific prevalence of COVID-19 as implemented in several scenarios could turn out to be rather different from what we assume, and currently no reliable estimates are available.
+Our estimates come with considerable uncertainty. This, first, includes the uncertainty as expressed through prediction intervals as provided above. Second, the age-specific IFR estimates of Levin et al. are based on a model and as such depend on several assumptions, and it is not clear whether they can be directly applied to Germany. Also, estimates of age-specific infection fatality rates coming from other studies sometimes differ considerably, in particular for higher ages which are very important for the final result [7]. Third, the age-specific prevalence of COVID-19 as implemented in several scenarios could turn out to be rather different from what we assume, and currently no reliable estimates are available. Finally, the results also depend to some extent on minor modelling choices, such as using an open age interval and the age-specific IFR used for this interval.
 
 ## Conclusions
 
