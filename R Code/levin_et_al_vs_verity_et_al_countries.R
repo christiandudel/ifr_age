@@ -236,15 +236,62 @@ db2 %>%
   group_by(Country) %>% 
   summarize(MeanAge = sum(Age * pop) / sum(pop))
 
-
-
+library(ggrepel)
+ScatterData <-
 all_ifrs %>% 
   filter(Measure == "ifr",
          Scenario == "s2",
          Country != "Morocco") %>%
   mutate(Value = ifelse(Source == "Levin et al.", Value, 10 * Value)) %>% 
-  left_join(MeanAge)  %>% 
+  left_join(MeanAge)  
+
+labelData <-
+  ScatterData %>% 
+ filter(Source == "Levin et al.")  %>% 
+mutate(x = 0)
+  
+  
+  
+ScatterData %>% 
   ggplot(aes(x = Value, y = MeanAge, color = Source)) + 
-  geom_point() 
-  
-  
+  geom_point() +
+  ylab("Mean age of population") + 
+  xlab("IFR (percent)") + 
+  geom_text(filter(labelData),
+             mapping = aes(x = x, y = MeanAge, label = Country),
+            color = "black",
+            hjust = "right") + 
+  theme_bw()
+    
+# um, I couild google forever to get this just right, or just do it in base...
+ScatterData <-
+ScatterData %>% 
+  mutate(color = case_when(
+    Source == "Levin et al." ~ "#bd196d",
+    Source == "Verity et al." ~ "#099c29",
+    Source == "Verity et al. (scaled)" ~ "#097c9c"
+  ))
+
+
+LineData <- ScatterData %>% 
+  group_by(Country) %>% 
+  filter(Value == max(Value)) %>% 
+  ungroup()
+LineData <- 
+  LineData %>% 
+  mutate(labely = ifelse(Country == "Germany", MeanAge + .2, 
+                         ifelse(Country == "Spain", MeanAge - .2,MeanAge)))
+
+LineData<- LineData %>% filter(!duplicated(LineData$Country))
+
+par(mai=c(1.2,1.2,.5,1))
+plot(NULL, type = 'n', xlim = c(0,17), ylim = c(20,45),
+     axes = FALSE, xlab = "", ylab = "")
+segments(rep(0,nrow(LineData)),LineData$MeanAge, LineData$Value,LineData$MeanAge, col = "#AAAAAA50")
+segments(seq(0,15,by=2.5),19.5,seq(0,15,by=2.5),45.5, col = "#AAAAAA50")
+points(ScatterData$Value, ScatterData$MeanAge, pch = 16, col = ScatterData$color)
+text(0,y = LineData$labely, LineData$Country,pos = 2, xpd = TRUE)
+axis(4, las = 1)
+axis(1,pos=19.5,xpd=T)
+mtext("Mean age of population",side = 4,3)
+mtext("IFR (%)",side = 1,2)
