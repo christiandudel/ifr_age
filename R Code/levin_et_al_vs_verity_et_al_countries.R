@@ -231,4 +231,20 @@ all_ifrs %>%
         axis.title.x = element_text(size = 8),
         axis.title.y = element_text(size = 8))
 
+MeanAge <- 
+db2 %>% 
+  group_by(Country) %>% 
+  summarize(MeanAge = sum(Age * pop) / sum(pop))
 
+
+
+all_ifrs %>% 
+  filter(Measure == "ifr",
+         Scenario == "s2",
+         Country != "Morocco") %>%
+  mutate(Value = ifelse(Source == "Levin et al.", Value, 10 * Value)) %>% 
+  left_join(MeanAge)  %>% 
+  ggplot(aes(x = Value, y = MeanAge, color = Source)) + 
+  geom_point() 
+  
+  
