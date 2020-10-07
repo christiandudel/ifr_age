@@ -264,12 +264,16 @@ ScatterData %>%
   theme_bw()
     
 # um, I couild google forever to get this just right, or just do it in base...
+# C65961
+# 5D8A00
+# 0094A8
+
 ScatterData <-
 ScatterData %>% 
   mutate(color = case_when(
-    Source == "Levin et al." ~ "#bd196d",
-    Source == "Verity et al." ~ "#099c29",
-    Source == "Verity et al. (scaled)" ~ "#097c9c"
+    Source == "Levin et al." ~ "#C65961",
+    Source == "Verity et al." ~ "#5D8A00",
+    Source == "Verity et al. (scaled)" ~ "#0094A8"
   ))
 
 
@@ -284,14 +288,27 @@ LineData <-
 
 LineData<- LineData %>% filter(!duplicated(LineData$Country))
 
-par(mai=c(1.2,1.2,.5,1))
+LegendData <-
+  ScatterData %>% 
+  filter(Country == "USA")
+
+png("Figures/IFRMeanAgeScatter.png",600,500)
+par(mai=c(.8,1.2,.2,1))
 plot(NULL, type = 'n', xlim = c(0,17), ylim = c(20,45),
      axes = FALSE, xlab = "", ylab = "")
 segments(rep(0,nrow(LineData)),LineData$MeanAge, LineData$Value,LineData$MeanAge, col = "#AAAAAA50")
 segments(seq(0,15,by=2.5),19.5,seq(0,15,by=2.5),45.5, col = "#AAAAAA50")
-points(ScatterData$Value, ScatterData$MeanAge, pch = 16, col = ScatterData$color)
+points(ScatterData$Value, ScatterData$MeanAge, pch = 16, col = ScatterData$color,
+       cex = 1.2)
 text(0,y = LineData$labely, LineData$Country,pos = 2, xpd = TRUE)
 axis(4, las = 1)
 axis(1,pos=19.5,xpd=T)
 mtext("Mean age of population",side = 4,3)
 mtext("IFR (%)",side = 1,2)
+
+legend(x=12,y=24,
+       col = LegendData$color, 
+       pch = 16, 
+       legend = LegendData$Source, 
+       bty = 'n')
+dev.off()
