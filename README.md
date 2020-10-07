@@ -1,5 +1,9 @@
 # Scenarios for the infection fatality rate in Germany
 
+## Summary
+
+In a recent study, Levin et al. provide metaregression estimates of the COVID-19 infection fatality rate (IFR) by age. Building on these results we calculate the total IFR for Germany under several scenarios. This includes scenarios based on observed COVID-19 prevalence in Germany, and an alternative method relying on age-specific death counts instead of prevalence. In our scenarios the resulting total IFRs for Germany range from 0.7% to 2.4%. Thus, the IFR of COVID-19 in Germany could be much larger than the IFR of influenza. However, our results come with considerable uncertainty, and they depend on the specific assumptions made and data used. Moreover, they are not directly comparable to the scenarios reported by Levin et al. for the United States.
+
 ## Background
 
 In a recent study, Levin et al. [1] provide metaregression estimates of the COVID-19 infection fatality rate (IFR) by age. Based on these estimates, they calculate several scenarios for the total IFR in the United States. However, the scenarios they provide are based on rather strong assumptions. Among other things they assume a rectangular age structure of the U.S. population; i.e., the number of individuals in each age is the same across all ages. This goes against recent findings which show that the age structure of populations can have a substantial impact on COVID-19 mortality [2,3].
