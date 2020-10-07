@@ -1,4 +1,4 @@
-# Scenarios for the infection fatality rate in Germany
+# Scenarios for the COVID-19 infection fatality rate in Germany
 
 ## Summary
 
