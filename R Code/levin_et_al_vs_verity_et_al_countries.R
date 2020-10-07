@@ -291,6 +291,7 @@ LegendData <-
   ScatterData %>% 
   filter(Country == "USA")
 
+# png version of the plot
 png("Figures/IFRMeanAgeScatter.png",600,500)
 par(mai=c(.8,1.2,.2,1))
 plot(NULL, type = 'n', xlim = c(0,3), ylim = c(20,45),
@@ -306,6 +307,28 @@ mtext("Mean age of population",side = 4,3)
 mtext("IFR (%)",side = 1,2)
 
 legend(x=2,y=24,
+       col = LegendData$color, 
+       pch = 16, 
+       legend = LegendData$Source, 
+       bty = 'n')
+dev.off()
+
+# pdf version of the plot
+pdf("Figures/IFRMeanAgeScatter.pdf")
+par(mai=c(.8,1.2,.2,1))
+plot(NULL, type = 'n', xlim = c(0,3), ylim = c(20,45),
+     axes = FALSE, xlab = "", ylab = "")
+segments(rep(0,nrow(LineData)),LineData$MeanAge, LineData$Value,LineData$MeanAge, col = "#AAAAAA50")
+segments(seq(0,3,by=.25),19.5,seq(0,3,by=.25),45.5, col = "#AAAAAA50")
+points(ScatterData$Value, ScatterData$MeanAge, pch = 16, col = ScatterData$color,
+       cex = 1.2)
+text(0,y = LineData$labely, LineData$Country,pos = 2, xpd = TRUE)
+axis(4, las = 1)
+axis(1,pos=19.5,xpd=T)
+mtext("Mean age of population",side = 4,3)
+mtext("IFR (%)",side = 1,2)
+
+legend(x=1.7,y=24,
        col = LegendData$color, 
        pch = 16, 
        legend = LegendData$Source, 
