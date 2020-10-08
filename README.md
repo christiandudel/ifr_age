@@ -1,5 +1,10 @@
 # Scenarios for the COVID-19 infection fatality rate in Germany
 
+Enrique Acosta [1], Christina Bohk-Ewald [2,1], Christian Dudel [1], Tim Riffe [1], Mikko Myrskylä [1,2]
+
+[1] Max Planck Institute for Demographic Research, Germany
+[2] Center for Social Data Science, University of Helsinki, Finland
+
 ## Summary
 
 In a recent study, Levin et al. provide metaregression estimates of the COVID-19 infection fatality rate (IFR) by age. Building on these results we calculate the total IFR for Germany under several scenarios. This includes scenarios based on observed COVID-19 prevalence in Germany, and an alternative method relying on age-specific death counts instead of prevalence. In our scenarios the resulting total IFRs for Germany range from 0.7% to 2.4%. Thus, the IFR of COVID-19 in Germany could be much larger than the IFR of influenza. However, our results come with considerable uncertainty, and they depend on the specific assumptions made and data used. Moreover, they are not directly comparable to the scenarios reported by Levin et al. for the United States.
