@@ -1,4 +1,4 @@
-# Scenarios for the COVID-19 infection fatality rate in Germany
+# Scenarios for the COVID-19 infection fatality rate in Germany and worldwide
 
 Enrique Acosta [1], Christina Bohk-Ewald [2,1], Christian Dudel [1], Tim Riffe [1], Mikko Myrskylä [1,2]
 
