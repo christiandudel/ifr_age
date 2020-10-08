@@ -231,4 +231,106 @@ all_ifrs %>%
         axis.title.x = element_text(size = 8),
         axis.title.y = element_text(size = 8))
 
+MeanAge <- 
+db2 %>% 
+  group_by(Country) %>% 
+  summarize(MeanAge = sum(Age * pop) / sum(pop))
 
+library(ggrepel)
+ScatterData <-
+all_ifrs %>% 
+  filter(Measure == "ifr",
+         Scenario == "s2",
+         Country != "Morocco") %>%
+  left_join(MeanAge)  
+
+labelData <-
+  ScatterData %>% 
+ filter(Source == "Levin et al.")  %>% 
+mutate(x = 0)
+  
+  
+  
+ScatterData %>% 
+  ggplot(aes(x = Value, y = MeanAge, color = Source)) + 
+  geom_point() +
+  ylab("Mean age of population") + 
+  xlab("IFR (percent)") + 
+  geom_text(filter(labelData),
+             mapping = aes(x = x, y = MeanAge, label = Country),
+            color = "black",
+            hjust = "right") + 
+  theme_bw()
+    
+# um, I couild google forever to get this just right, or just do it in base...
+# C65961
+# 5D8A00
+# 0094A8
+
+ScatterData <-
+ScatterData %>% 
+  mutate(color = case_when(
+    Source == "Levin et al." ~ "#C65961",
+    Source == "Verity et al." ~ "#5D8A00",
+    Source == "Verity et al. (scaled)" ~ "#0094A8"
+  ))
+
+
+LineData <- ScatterData %>% 
+  group_by(Country) %>% 
+  filter(Value == max(Value)) %>% 
+  ungroup()
+LineData <- 
+  LineData %>% 
+  mutate(labely = ifelse(Country == "Germany", MeanAge + .2, 
+                         ifelse(Country == "Spain", MeanAge - .2,MeanAge)))
+
+LineData<- LineData %>% filter(!duplicated(LineData$Country))
+
+LegendData <-
+  ScatterData %>% 
+  filter(Country == "USA")
+
+# png version of the plot
+png("Figures/IFRMeanAgeScatter.png",600,500)
+par(mai=c(.8,1.2,.2,1))
+plot(NULL, type = 'n', xlim = c(0,3), ylim = c(20,45),
+     axes = FALSE, xlab = "", ylab = "")
+segments(rep(0,nrow(LineData)),LineData$MeanAge, LineData$Value,LineData$MeanAge, col = "#AAAAAA50")
+segments(seq(0,3,by=.25),19.5,seq(0,3,by=.25),45.5, col = "#AAAAAA50")
+points(ScatterData$Value, ScatterData$MeanAge, pch = 16, col = ScatterData$color,
+       cex = 1.2)
+text(0,y = LineData$labely, LineData$Country,pos = 2, xpd = TRUE)
+axis(4, las = 1)
+axis(1,pos=19.5,xpd=T)
+mtext("Mean age of population",side = 4,3)
+mtext("IFR (%)",side = 1,2)
+
+legend(x=2,y=24,
+       col = LegendData$color, 
+       pch = 16, 
+       legend = LegendData$Source, 
+       bty = 'n')
+dev.off()
+
+# pdf version of the plot
+pdf("Figures/IFRMeanAgeScatter.pdf")
+par(mai=c(.8,1.2,.2,1))
+plot(NULL, type = 'n', xlim = c(0,3), ylim = c(20,45),
+     axes = FALSE, xlab = "", ylab = "")
+segments(rep(0,nrow(LineData)),LineData$MeanAge, LineData$Value,LineData$MeanAge, col = "#AAAAAA50")
+segments(seq(0,3,by=.25),19.5,seq(0,3,by=.25),45.5, col = "#AAAAAA50")
+points(ScatterData$Value, ScatterData$MeanAge, pch = 16, col = ScatterData$color,
+       cex = 1.2)
+text(0,y = LineData$labely, LineData$Country,pos = 2, xpd = TRUE)
+axis(4, las = 1)
+axis(1,pos=19.5,xpd=T)
+mtext("Mean age of population",side = 4,3)
+mtext("IFR (%)",side = 1,2)
+
+legend(x=1.7,y=24,
+       col = LegendData$color, 
+       pch = 16, 
+       legend = LegendData$Source, 
+       bty = 'n')
+dev.off()
