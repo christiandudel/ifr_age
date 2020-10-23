@@ -172,7 +172,7 @@
   cases <- cases %>% spread(Country,Cases)
   
   # Rename
-  names(cases)[2:dim(cases)[2]] <- paste(names(deaths)[2:dim(deaths)[2]],
+  names(cases)[2:dim(cases)[2]] <- paste(names(cases)[2:dim(cases)[2]],
                                          "Cases",
                                          sep="_")
   
@@ -213,7 +213,7 @@
   cases <- cases %>% spread(Country,NewCases)
   
   # Rename
-  names(cases)[2:dim(cases)[2]] <- paste(names(deaths)[2:dim(deaths)[2]],
+  names(cases)[2:dim(cases)[2]] <- paste(names(cases)[2:dim(cases)[2]],
                                          "NewCases",
                                          sep="_")
   
