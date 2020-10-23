@@ -230,5 +230,5 @@
   Counts$Age <- Age
   
   # Save
-  write.csv(Counts,"Data/Counts.csv",row.names=F)
+  write.csv(Counts,"Output/Counts.csv",row.names=F)
   

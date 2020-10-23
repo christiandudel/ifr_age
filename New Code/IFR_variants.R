@@ -149,5 +149,5 @@
   
 ### Save ############################################################
   
-  write.csv(IFRs,"Data/IFRs.csv",row.names=F)
+  write.csv(IFRs,"Output/IFRs.csv",row.names=F)
   

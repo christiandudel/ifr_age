@@ -11,8 +11,8 @@
   lastinterval <- 2.5
 
   # Load data
-  IFRs <- read_csv("Data/IFRs.csv")
-  Counts <- read_csv("Data/Counts.csv")
+  IFRs <- read_csv("Output/IFRs.csv")
+  Counts <- read_csv("Output/Counts.csv")
 
   # Data frame for results
   Scenarios <- data.frame(IFR=character(),
@@ -81,4 +81,4 @@
   rownames(Scenarios) <- paste(1:dim(Scenarios)[1])
   
   # Save
-  write.csv(Scenarios,"Data/Scenarios.csv",row.names = F)
+  write.csv(Scenarios,"Output/Scenarios.csv",row.names = F)
