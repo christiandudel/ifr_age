@@ -21,7 +21,6 @@
   
   # Data frame for results
   IFRs <- data.frame(Age=seq(minage,maxage,by=resolution))
-  nage <- length(IFRs$age)
 
 
 ### Levin et al #####################################################
@@ -58,12 +57,24 @@
   IFRs$Salje <- Salje
   
   
+### +- 25% ################################################
+  
+  IFRs <- IFRs %>% mutate(Levin_p25 = Levin*1.25,
+                          Levin_m25 = Levin*0.75,
+                          Verity_p25 = Verity*1.25,
+                          Verity_m25 = Verity*0.75,
+                          Salje_p25 = Salje*1.25,
+                          Salje_m25 = Salje*0.75)  
+  
+  
 ### Preparations for scaling ########################################
 
   # Load data from web
   web <- "https://population.un.org/wpp/Download/Files/1_Indicators%20(Standard)/EXCEL_FILES/3_Mortality/WPP2019_MORT_F17_1_ABRIDGED_LIFE_TABLE_BOTH_SEXES.xlsx" 
   filename <- "Data/UNe0.xlsx"
-  if(!file.exists(filename)) GET(web, write_disk(filename, overwrite = TRUE))
+  if(!file.exists(filename)) {
+    GET(web, write_disk(filename, overwrite = TRUE))
+  }
 
   # Load spreadsheet
   UNdat <- read_excel(path=filename,sheet="ESTIMATES",range="A17:T77381")
@@ -133,4 +144,5 @@
     IFRs[,paste0("Salje_",i)] <- scaled
     
   }  
+  
   
