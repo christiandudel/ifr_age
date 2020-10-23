@@ -220,3 +220,15 @@
   # Merge
   Counts <- inner_join(Counts,cases)
   
+  
+### Rescale and save ################################################
+  
+  # Scale to 1 
+  Age <- Counts$Age
+  Counts <- apply(Counts,2,function(x) x/sum(x))
+  Counts <- as.data.frame(Counts)
+  Counts$Age <- Age
+  
+  # Save
+  write.csv(Counts,"Data/Counts.csv",row.names=F)
+  
