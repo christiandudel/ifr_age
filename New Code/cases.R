@@ -45,7 +45,71 @@
   # Some other country?
   
   # Put in data
-  Prevalence <- Prevalence %>% mutate(Italy = italy)
+  Prevalence <- Prevalence %>% mutate(PrItaly = italy)
+  
+  
+### Get population data #############################################
+  
+  # Load UN population data from web
+  web <- "https://population.un.org/wpp/Download/Files/1_Indicators%20(Standard)/EXCEL_FILES/1_Population/WPP2019_POP_F07_1_POPULATION_BY_AGE_BOTH_SEXES.xlsx" 
+  filename <- "Data/UNpop.xlsx"
+  if(!file.exists(filename)) {
+    GET(web, write_disk(filename, overwrite = TRUE))
+  }
+  
+  # Read pop data
+  UNpop <- read_xlsx(filename, sheet = 1, skip = 16)
+
+  # Rename
+  UNpop <- UNpop %>% rename("Country"="Region, subregion, country or area *",
+                            "Year"="Reference date (as of 1 July)")
+  
+  # Select countries
+  UNpop <- UNpop %>% filter(Country%in%c(countrylist))
+  
+  # Keep most recent year for each country
+  UNpop <- UNpop %>% group_by(Country) %>% 
+    filter(Year==max(Year)) 
+
+  # Keep variables of interest
+  UNpop <- UNpop %>% select(Country,"0-4":"100+")
+  
+  # Rename
+  names(UNpop)[2:dim(UNpop)[2]] <- paste(seq(0,100,by=5))
+  
+  # Reshape
+  UNpop <- UNpop %>% gather(Age,Pop,-Country) 
+  
+  # Change types
+  UNpop <- UNpop %>% mutate(Age=as.numeric(Age),
+                            Pop=as.numeric(Pop))
+  
+  # Aggregate age if needed
+  UNpop <- UNpop %>%  mutate(Age=ifelse(Age>maxage,max(Counts$Age),Age))
+  UNpop <- aggregate(Pop~Country+Age,data=UNpop,sum)
+  
+  # Reshape again
+  UNpop <- UNpop %>% spread(Country,Pop)
+  
+  
+### Combine population data with prevalence data ####################
+  
+  # Restrict prevalence
+  Prevalence <- Prevalence %>% filter(Age%in%UNpop$Age)
+  
+  # Loop over countries
+  for(country in countrylist) {
+    
+    # Apply scenarios
+    tmp <- UNpop[,country]*Prevalence[,-1]
+    
+    # Name
+    names(tmp) <- paste(country,names(tmp),sep="_")
+    
+    # Put into results object
+    Counts <- cbind(Counts,tmp)
+    
+  }
   
   
 ### Get data for case and death counts ##############################
@@ -91,9 +155,10 @@
   deaths <- deaths %>% spread(Country,Deaths)
   
   # Rename
-  names(deaths)[2:dim(deaths)[2]] <- paste0("Deaths_",
-                                      names(deaths)[2:dim(deaths)[2]])
-  
+  names(deaths)[2:dim(deaths)[2]] <- paste(names(deaths)[2:dim(deaths)[2]],
+                                           "Deaths",
+                                           sep="_")
+    
   # Merge
   Counts <- inner_join(Counts,deaths)
   
@@ -107,8 +172,9 @@
   cases <- cases %>% spread(Country,Cases)
   
   # Rename
-  names(cases)[2:dim(cases)[2]] <- paste0("Cases_",
-                                            names(cases)[2:dim(cases)[2]])
+  names(cases)[2:dim(cases)[2]] <- paste(names(deaths)[2:dim(deaths)[2]],
+                                         "Cases",
+                                         sep="_")
   
   # Merge
   Counts <- inner_join(Counts,cases)
@@ -147,8 +213,9 @@
   cases <- cases %>% spread(Country,NewCases)
   
   # Rename
-  names(cases)[2:dim(cases)[2]] <- paste0("WCases_",
-                                          names(cases)[2:dim(cases)[2]])
+  names(cases)[2:dim(cases)[2]] <- paste(names(deaths)[2:dim(deaths)[2]],
+                                         "NewCases",
+                                         sep="_")
   
   # Merge
   Counts <- inner_join(Counts,cases)
