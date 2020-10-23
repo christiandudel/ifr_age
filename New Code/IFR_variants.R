@@ -79,6 +79,7 @@
   # Load spreadsheet
   UNdat <- read_excel(path=filename,sheet="ESTIMATES",range="A17:T77381")
   
+  # Makes a few things easier below
   UNdat <- as.data.frame(UNdat)
   
   # Rename
