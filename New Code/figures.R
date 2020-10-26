@@ -16,7 +16,7 @@ tmpplot <- tmpplot %>% filter(IFRs%in%c("Levin","Levin_m25","Levin_p25",
 tmpplot <- tmpplot %>% filter(Cases%in%c("Levin2","Deaths","Cases","NewCases"))
 
 # Plot
-pdf(file="Output/Figure_Germany.pdf")
+pdf(file="Figures/Figure_Germany.pdf")
 dotchart(tmpplot$Result[tmpplot$Cases=="Levin2"][7:1],xlim=c(0,0.038),pch=16,col="red",
          labels=c("Levin et al.","Verity et al.","Salje et al.",
                   "Levin et al. +25%","Levin et al. -25%",
@@ -57,7 +57,7 @@ tmp <- tmpplot %>% group_by(Country) %>% summarise(m=median(Result),
                                                    min=min(Result),
                                                    max=max(Result))
 
-pdf(file="Output/Figure_Overview.pdf")
+pdf(file="Figures/Figure_Overview.pdf")
 dotchart(labels=tmp$Country,x=tmp$m,xlab="IFR",xlim=c(0,0.10),pch=16,
          panel.first={rect(xleft=0.001,xright=0.005,ybottom=-3,ytop=15,
                            col=rgb(0,0,1,alpha=0.15),border=NA);grid()},
