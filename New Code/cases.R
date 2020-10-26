@@ -11,8 +11,10 @@
   maxage <- 99
 
   # Countries to look at
-  countrylist <- c("Germany","Spain","Italy")
-
+  # Countries to look at
+  countrylist <- c("Germany","Spain","Italy","France","Sweden",
+                   "China","Japan","Colombia","Brazil","USA")
+  
   # Data frame for results
   Prevalence <- data.frame(Age=seq(0,maxage))
   Counts <- data.frame(Age=seq(0,maxage,by=5))
@@ -63,6 +65,11 @@
   # Rename
   UNpop <- UNpop %>% rename("Country"="Region, subregion, country or area *",
                             "Year"="Reference date (as of 1 July)")
+  
+  # Recode country
+  UNpop$Country <- recode(UNpop$Country, 
+                          "United States of America" = "USA",
+                          "United Kingdom"="UK")
   
   # Select countries
   UNpop <- UNpop %>% filter(Country%in%c(countrylist))

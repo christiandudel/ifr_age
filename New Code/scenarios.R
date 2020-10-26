@@ -80,5 +80,10 @@
   # Edit row names
   rownames(Scenarios) <- paste(1:dim(Scenarios)[1])
   
+  # Country variable
+  Scenarios$Country <- unlist(lapply(strsplit(Scenarios$Cases,"_"),function(x) x[[1]]))
+  Scenarios$Cases <- unlist(lapply(strsplit(Scenarios$Cases,"_"),function(x) x[[2]]))
+  
   # Save
   write.csv(Scenarios,"Output/Scenarios.csv",row.names = F)
+

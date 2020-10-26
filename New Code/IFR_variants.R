@@ -17,7 +17,8 @@
   resolution <- 0.5
   
   # Countries to look at
-  countrylist <- c("Germany","Spain","Italy")
+  countrylist <- c("Germany","Spain","Italy","France","Sweden",
+                   "China","Japan","Colombia","Brazil","USA")
   
   # Data frame for results
   IFRs <- data.frame(Age=seq(minage,maxage,by=resolution))
@@ -57,6 +58,28 @@
   IFRs$Salje <- Salje
   
   
+### Modi et al ######################################################  
+  
+  # Load
+  modi <- read.table("Data/IFR-Modi.txt",
+                     header=FALSE, stringsAsFactors = FALSE)
+  
+  # Ungroup
+  Modi1 <- ungroupIFR(IFR=modi[,2]/100,interval=modi[,1],midinterval=5,
+                      minage=minage,maxage=maxage,resolution=resolution)
+  
+  Modi2 <- ungroupIFR(IFR=modi[,3]/100,interval=modi[,1],midinterval=5,
+                      minage=minage,maxage=maxage,resolution=resolution)
+  
+  Modi3 <- ungroupIFR(IFR=modi[,4]/100,interval=modi[,1],midinterval=5,
+                      minage=minage,maxage=maxage,resolution=resolution)
+  
+  # Put into data frame
+  IFRs$Modi1 <- Modi1
+  IFRs$Modi2 <- Modi2
+  IFRs$Modi3 <- Modi3  
+  
+  
 ### +- 25% ################################################
   
   IFRs <- IFRs %>% mutate(Levin_p25 = Levin*1.25,
@@ -79,21 +102,26 @@
   # Load spreadsheet
   UNdat <- read_excel(path=filename,sheet="ESTIMATES",
                       range="A17:T77381")
-  
-  # Makes a few things easier below
-  UNdat <- as.data.frame(UNdat)
-  
+
   # Rename
   UNdat <- UNdat %>% rename("Country"="Region, subregion, country or area *",
                             "ex"="Expectation of life e(x)",
                             "Age" = "Age (x)")
   
+  # Recode country
+  UNdat$Country <- recode(UNdat$Country, 
+                          "United States of America" = "USA",
+                          "United Kingdom"="UK")
+  
   # Edit (gives an expected [?] error message)
   UNdat <- UNdat %>% mutate(ex=as.numeric(ex))
 
-  # Subset (always China & France for Verity and Salje)
+  # Subset (always China & France & Italy for Verity and Salje and Modi)
   UNdat <- UNdat %>% filter(Period=="2015-2020") %>% 
-                     filter(Country%in%c(countrylist,"France","China"))
+                     filter(Country%in%c(countrylist,"France","China","Italy"))
+  
+  # Change to data.frame
+  UNdat <- as.data.frame(UNdat)
   
   
 ### Apply scaling for all countries, Verity/China ###################
@@ -146,6 +174,41 @@
     IFRs[,paste0("Salje_",i)] <- scaled
     
   }  
+  
+  
+### Apply scaling for all countries, Modi/Italy ###################
+  
+  # Reference data
+  e_2 <- UNdat[UNdat$Country=="Italy","ex"]
+  interval <- UNdat[UNdat$Country=="Italy","Age"]
+  
+  # Loop over all countries  
+  for(i in countrylist) {
+    
+    # Get data
+    e_1 <- UNdat[UNdat$Country==i,"ex"]
+    
+    # Get ages
+    scaling <- match_e_x(e_1,e_2,interval=interval,maxage=maxage,minage=minage,
+                         outputresolution=resolution)
+    
+    # Predict
+    scaled1 <- ungroupIFR(IFR=modi[,2]/100,interval=modi[,1],midinterval=5,
+                         age=scaling)
+    
+    scaled2 <- ungroupIFR(IFR=modi[,3]/100,interval=modi[,1],midinterval=5,
+                          age=scaling)
+    
+    scaled3 <- ungroupIFR(IFR=modi[,4]/100,interval=modi[,1],midinterval=5,
+                          age=scaling)
+    
+    # Assign
+    IFRs[,paste0("Modi1_",i)] <- scaled1
+    IFRs[,paste0("Modi2_",i)] <- scaled2
+    IFRs[,paste0("Modi3_",i)] <- scaled3
+    
+  }    
+  
   
 ### Save ############################################################
   
