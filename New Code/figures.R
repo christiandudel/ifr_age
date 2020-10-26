@@ -24,9 +24,9 @@ dotchart(tmpplot$Result[tmpplot$Cases=="Levin2"][7:1],xlim=c(0,0.038),pch=16,col
          main="Germany",
          panel.first={rect(xleft=0.001,xright=0.005,ybottom=-3,ytop=15,
                            col=rgb(0,0,1,alpha=0.15),border=NA);grid()})
-points(y=7:1,x=tmpplot$Result[tmpplot$Cases=="Deaths"][7:1],pch=16,col="blue")  
-points(y=7:1,x=tmpplot$Result[tmpplot$Cases=="Cases"][7:1],pch=16,col="purple")  
-points(y=7:1,x=tmpplot$Result[tmpplot$Cases=="NewCases"][7:1],pch=16,col="orange")  
+points(y=7:1,x=tmpplot$Result[tmpplot$Cases=="Deaths"],pch=16,col="blue")  
+points(y=7:1,x=tmpplot$Result[tmpplot$Cases=="Cases"],pch=16,col="purple")  
+points(y=7:1,x=tmpplot$Result[tmpplot$Cases=="NewCases"],pch=16,col="orange")  
 legend(x=0.025,y=7.4,pch=16,col=c("red","blue","purple","orange"),
        legend=c("Rectangular","Deaths/indirect","Cumulative cases","New cases"),title="Age structure",bg="white")  
 abline(h=4.5)
