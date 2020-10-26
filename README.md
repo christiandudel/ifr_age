@@ -1,8 +1,13 @@
-# Scenarios for the COVID-19 infection fatality rate in Germany
+# Scenarios for the COVID-19 infection fatality rate in Germany and worldwide
+
+Enrique Acosta [1], Christina Bohk-Ewald [2,1], Christian Dudel [1], Tim Riffe [1], Mikko Myrskylä [1,2]
+
+[1] Max Planck Institute for Demographic Research, Germany
+[2] Center for Social Data Science, University of Helsinki, Finland
 
 ## Summary
 
-In a recent study, Levin et al. provide metaregression estimates of the COVID-19 infection fatality rate (IFR) by age. Building on these results we calculate the total IFR for Germany under several scenarios. This includes scenarios based on observed COVID-19 prevalence in Germany, and an alternative method relying on age-specific death counts instead of prevalence. In our scenarios the resulting total IFRs for Germany range from 0.7% to 2.4%. Thus, the IFR of COVID-19 in Germany could be much larger than the IFR of influenza. However, our results come with considerable uncertainty, and they depend on the specific assumptions made and data used. Moreover, they are not directly comparable to the scenarios reported by Levin et al. for the United States.
+In a recent study, Levin et al. provide metaregression estimates of the COVID-19 infection fatality rate (IFR) by age. Building on these results we calculate the total IFR for Germany under several scenarios. This includes scenarios based on observed COVID-19 prevalence in Germany, and an alternative method relying on age-specific death counts instead of prevalence. In our scenarios the resulting total IFRs for Germany range from 0.7% to 2.4%. Thus, the IFR of COVID-19 in Germany could be much larger than the IFR of influenza. However, our results come with considerable uncertainty, and they depend on the specific assumptions made and data used. Moreover, they are not directly comparable to the scenarios reported by Levin et al. for the United States. Applying our methods and scenarios to further countries shows a wide range of resulting IFRs, but the mean age of the population seems to be a reliable predictor of the levels of the IFR.
 
 ## Background
 
@@ -11,7 +16,7 @@ In a recent study, Levin et al. [1] provide metaregression estimates of the COVI
 
 ## Aim
 
-Building on the results of Levin et al. we provide estimates of the total IFR for Germany taking into account the real age structure of the population, and including additional scenarios and methodological approaches.
+Building on the results of Levin et al. we provide estimates of the total IFR for Germany taking into account the real age structure of the population, and including additional scenarios and methodological approaches. We also apply our scenarios and methods to further countries.
 
 ## Method
 
@@ -19,7 +24,7 @@ Age-specific IFRs are calculated using the exponential function provided by Levi
 
 ## Results
 
-The estimates of the total IFR for Germany range from 0.7% to 2.4%. This is considerably higher than the estimates found by Levin et al. In particular, the scenarios based on German data (5,6) and the method not requiring assumptions on the age structure of cases (7) are all around or above 1.5%. However, the uncertainty of these estimates is large. For instance, using the prediction intervals provided by Levin et al. the prediction interval for scenario 2 ranges from 0.5% to 6.6%.
+The estimates of the total IFR for Germany range from 0.7% to 2.4%. This is considerably higher than the estimates found by Levin et al. In particular, the scenarios based on German data (5,6) and the method not requiring assumptions on the age structure of cases (7) are all around or above 1.5%. However, the uncertainty of these estimates is large. For instance, using the prediction intervals provided by Levin et al. the prediction interval for scenario 2 ranges from 0.5% to 6.6%. Results for additional countries also show a wide range, although the mean age of the population seems to be a good predictor of the level of IFRs.
 
 ## Limitations
 
@@ -27,7 +32,7 @@ Our estimates come with considerable uncertainty. This, first, includes the unce
 
 ## Conclusions
 
-The IFR of COVID-19 in Germany could be considerably larger than the IFR of influenza. However, our results come with considerable uncertainty, and in the future updated results based on improved and more complete data could potentially show diverging results.
+The IFR of COVID-19 in Germany could be considerably larger than the IFR of influenza, and this also seems to hold for other countries. However, our results come with considerable uncertainty, and in the future updated results based on improved and more complete data could potentially show diverging results.
 
 ## Code and data
 
