@@ -47,6 +47,12 @@ db_ifr_age <- db_deaths %>%
          Age = as.character(Age)) %>% 
   select(Sex, Age, Deaths, Exposure, IR, Infected, IFR)
 
+# saving IFRs
+db_ifr_age2 <- db_ifr_age %>% 
+  select(Sex, Age, IFR)
+
+write_csv(db_ifr_age2,  path = "Output/spain_sex_age_ifr.csv")
+
 # Overall IFR in Spain
 db_ifr_age %>%
   group_by(Sex) %>% 
@@ -55,8 +61,6 @@ db_ifr_age %>%
   ungroup() %>% 
   mutate(Overall_IFR = Deaths / Infected)
   
-write_csv(db_ifr_age,  path = "Output/spain_sex_age_ifr.csv")
-
 # plotting sex- and age-specific IFR in Spain
 db_ifr_age %>% 
   mutate(Age = as.integer(Age)) %>% 
@@ -102,7 +106,7 @@ db_ifrs %>%
   ggplot()+
   geom_point(aes(Age, Ratio, col = Sex))+
   geom_hline(yintercept = 1, linetype = "dashed")+
-  scale_y_log10()+
+  scale_y_log10(limits = c(0.4, 16), breaks = c(0.5, 1, 2, 4, 8, 16))+
   scale_x_continuous(breaks = seq(10, 90, 10))+
   scale_color_manual(values = c("red", "black"))+
   theme_bw()
