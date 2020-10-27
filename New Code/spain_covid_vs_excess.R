@@ -57,3 +57,34 @@ db_age_dist %>%
   theme_bw()
 
 ggsave("Figures/spain_seroprev/age_distrib_excess_covid.png")
+
+db_covid3 <- db_covid %>% 
+  filter(Country == "Spain", 
+         Region == "All",
+         Date == "21.05.2020",
+         Sex != "b") %>% 
+  mutate(Age = ifelse(Age >= 90, 90, Age)) %>% 
+  group_by(Sex, Age) %>%
+  summarise(Deaths = sum(Deaths)) %>% 
+  ungroup() %>% 
+  mutate(Source = "COVerAGE-DB")
+  
+
+db_excess3 <- db_excess %>% 
+  filter(Age != "All") %>% 
+  select(Sex, Age, Deaths) %>% 
+  mutate(Source = "Excess",
+         Age = as.integer(Age))
+
+db_deaths_age <- bind_rows(db_covid3, db_excess3)
+
+db_deaths_age %>% 
+  ggplot()+
+  geom_line(aes(Age, Deaths, col = Source))+
+  facet_grid(~ Sex)+
+  scale_y_log10()+
+  scale_x_continuous(breaks = seq(0, 90, 10))+
+  scale_color_manual(values = c("red", "black"))+
+  theme_bw()
+
+ggsave("Figures/spain_seroprev/age_deaths_excess_covid.png")
