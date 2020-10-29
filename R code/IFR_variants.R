@@ -9,7 +9,7 @@
   library(httr)
 
   # Functions
-  source("New Code/functions.R")
+  source("R code/functions.R")
 
   # Some settings
   minage <- 0
