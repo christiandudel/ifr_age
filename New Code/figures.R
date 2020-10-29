@@ -8,7 +8,7 @@ Scenarios <- read.csv("Output/Scenarios.csv")
 tmpplot <- Scenarios %>% filter(Country=="Germany")
 
 # Select reasonable IFRs
-tmpplot <- tmpplot %>% filter(IFRs%in%c("Levin","Levin_m25","Levin_p25",
+tmpplot <- tmpplot %>% filter(IFRs%in%c("Levin","Levin_m25","Levin_p25","Levin_Germany",
                                         "Verity","Verity_Germany",
                                         "Salje","Salje_Germany"))
 
@@ -17,16 +17,16 @@ tmpplot <- tmpplot %>% filter(Cases%in%c("Levin2","Deaths","Cases","NewCases"))
 
 # Plot
 pdf(file="Figures/Figure_Germany.pdf")
-dotchart(tmpplot$Result[tmpplot$Cases=="Levin2"][7:1],xlim=c(0,0.038),pch=16,col="red",
+dotchart(tmpplot$Result[tmpplot$Cases=="Levin2"][8:1],xlim=c(0,0.038),pch=16,col="red",
          labels=c("Levin et al.","Verity et al.","Salje et al.",
                   "Levin et al. +25%","Levin et al. -25%",
-                  "Verity et al. scaled","Salje et al. scaled")[7:1],
+                  "Verity et al. scaled","Salje et al. scaled","Levin et al. scaled")[8:1],
          main="Germany",
          panel.first={rect(xleft=0.001,xright=0.005,ybottom=-3,ytop=15,
                            col=rgb(0,0,1,alpha=0.15),border=NA);grid()})
-points(y=7:1,x=tmpplot$Result[tmpplot$Cases=="Deaths"],pch=16,col="blue")  
-points(y=7:1,x=tmpplot$Result[tmpplot$Cases=="Cases"],pch=16,col="purple")  
-points(y=7:1,x=tmpplot$Result[tmpplot$Cases=="NewCases"],pch=16,col="orange")  
+points(y=8:1,x=tmpplot$Result[tmpplot$Cases=="Deaths"],pch=16,col="blue")  
+points(y=8:1,x=tmpplot$Result[tmpplot$Cases=="Cases"],pch=16,col="purple")  
+points(y=8:1,x=tmpplot$Result[tmpplot$Cases=="NewCases"],pch=16,col="orange")  
 legend(x=0.025,y=7.4,pch=16,col=c("red","blue","purple","orange"),
        legend=c("Rectangular","Deaths/indirect","Cumulative cases","New cases"),title="Age structure",bg="white")  
 abline(h=4.5)
@@ -49,7 +49,7 @@ tmpplot <- tmpplot %>% filter(Cases%in%c("Levin2","Deaths","Cases"))
 # Select reasonable IFRs
 tmpplot <- tmpplot %>% filter(IFRs%in%c("Levin","Levin_m25","Levin_p25",
                                         "Verity","Salje",
-                                        levels(interaction(c("Verity","Salje"),unique(Scenarios$Country),sep="_"))))
+                                        levels(interaction(c("Verity","Salje","Levin"),unique(Scenarios$Country),sep="_"))))
 
 tmp <- tmpplot %>% group_by(Country) %>% summarise(m=median(Result),
                                                    lo=quantile(Result,0.1),

@@ -5,12 +5,12 @@
 
   # Packages
   library(tidyverse)
+  library(readxl)
   library(httr)
 
   # Some settings
   maxage <- 99
 
-  # Countries to look at
   # Countries to look at
   countrylist <- c("Germany","Spain","Italy","France","Sweden",
                    "China","Japan","Colombia","Brazil","USA")

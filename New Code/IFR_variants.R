@@ -118,10 +118,26 @@
 
   # Subset (always China & France & Italy for Verity and Salje and Modi)
   UNdat <- UNdat %>% filter(Period=="2015-2020") %>% 
-                     filter(Country%in%c(countrylist,"France","China","Italy"))
+                     filter(Country%in%c(countrylist,"France","China","Italy")) %>% 
+                     select(Country,Age,ex)
   
   # Change to data.frame
   UNdat <- as.data.frame(UNdat)
+  
+
+### Add e_x for Levin ###############################################
+  
+  # Load data
+  ex_levin <- read_csv("Output/ex_levin.csv")
+  
+  # Edit
+  ex_levin <- ex_levin %>% select(Age,ex_weighted) %>% 
+              filter(Age%in%unique(UNdat$Age)) %>% 
+              mutate(Country="Levin") %>% 
+              rename("ex"="ex_weighted")
+  
+  # Combine
+  UNdat <- rbind(UNdat,ex_levin)
   
   
 ### Apply scaling for all countries, Verity/China ###################
@@ -208,6 +224,32 @@
     IFRs[,paste0("Modi3_",i)] <- scaled3
     
   }    
+  
+  
+### Apply scaling for all countries, Levin ##########################
+  
+  # Reference data
+  e_2 <- UNdat[UNdat$Country=="Levin","ex"]
+  interval <- UNdat[UNdat$Country=="Levin","Age"]
+  
+  # Loop over all countries
+  for(i in countrylist) {
+    
+    # Get data
+    e_1 <- UNdat[UNdat$Country==i,"ex"]
+    
+    # Get ages
+    scaling <- match_e_x(e_1,e_2,interval=interval,maxage=maxage,minage=minage,
+                         outputresolution=resolution)
+    
+    # Predict
+    scaled <- ungroupIFR(IFR=verity[,2],interval=verity[,1],midinterval=5,
+                         age=scaling)
+    
+    # Assign
+    IFRs[,paste0("Levin_",i)] <- scaled
+    
+  }
   
   
 ### Save ############################################################
