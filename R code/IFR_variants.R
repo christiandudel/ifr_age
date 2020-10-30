@@ -30,18 +30,72 @@
   IFRs <- IFRs %>% mutate(Levin=  exp(-7.53 + 0.119 * Age)/100)
   
   
+### Levin et al predicition intervals ###############################
+  
+  # Paths
+  filename <- 'Data/levin_prediction.xlsx'
+  preddata <- "https://www.medrxiv.org/highwire/filestream/98266/field_highwire_adjunct_files/0/2020.07.23.20160895-1.xlsx"
+  
+  # Download data
+  if(!file.exists(filename)) {
+    GET(preddata, write_disk(filename, overwrite = TRUE))
+  }
+  
+  # Load data
+  pred <- read_excel(path=filename,
+                     sheet="Metaregression Predictions",
+                     range="A2:F193",
+                     col_names=T)
+  
+  # Rename and extract
+  names(pred) <- c("Age","Pred","CIl","CUi","LevinLow","LevinUp")
+  pred <- pred %>% select(Age,LevinLow,LevinUp)
+  
+  # Divide by 100
+  pred <- pred %>% mutate(LevinLow=LevinLow/100,
+                          LevinUp=LevinUp/100) 
+  
+  # Extend to age 99
+  LevinLow <- ungroupIFR(IFR=pred$LevinLow,interval=pred$Age,
+                         midinterval=0.25,
+                         minage=minage,maxage=maxage,
+                         resolution=resolution)
+  
+  LevinUp  <- ungroupIFR(IFR=pred$LevinUp,interval=pred$Age,
+                         midinterval=0.25,
+                         minage=minage,maxage=maxage,
+                         resolution=resolution)
+  
+  # Assign
+  IFRs$LevinLow <- LevinLow
+  IFRs$LevinUp  <- LevinUp
+  
+  
 ### Verity et al ####################################################
   
   # Load
   verity <- read.table("Data/IFR-Verity.txt",
                        header=FALSE, stringsAsFactors = FALSE)
   
-  # Ungroup
-  Verity <- ungroupIFR(IFR=verity[,2],interval=verity[,1],midinterval=5,
-                       minage=minage,maxage=maxage,resolution=resolution)
+  # Ungroup: Point estimate
+  Verity <- ungroupIFR(IFR=verity[,2],interval=verity[,1],
+                       midinterval=5,minage=minage,maxage=maxage,
+                       resolution=resolution)
+  
+  # Ungroup: 95% lower bound
+  VerityLow <- ungroupIFR(IFR=verity[,3],interval=verity[,1],
+                       midinterval=5,minage=minage,maxage=maxage,
+                       resolution=resolution)
+  
+  # Ungroup: 95% upper bound
+  VerityUp <- ungroupIFR(IFR=verity[,4],interval=verity[,1],
+                          midinterval=5,minage=minage,maxage=maxage,
+                          resolution=resolution)
   
   # Put into data frame
-  IFRs$Verity <- Verity
+  IFRs$Verity    <- Verity
+  IFRs$VerityLow <- VerityLow
+  IFRs$VerityUp  <- VerityUp
   
 
 ### Salje et al #####################################################
@@ -50,12 +104,25 @@
   salje <- read.table("Data/IFR-Salje.txt",
                        header=FALSE, stringsAsFactors = FALSE)
   
-  # Ungroup
-  Salje <- ungroupIFR(IFR=salje[,2]/100,interval=salje[,1],midinterval=5,
-                      minage=minage,maxage=maxage,resolution=resolution)
+  # Ungroup: Point estimate
+  Salje <- ungroupIFR(IFR=salje[,2]/100,interval=salje[,1],
+                      midinterval=5,minage=minage,maxage=maxage,
+                      resolution=resolution)
+  
+  # Ungroup: 95% low
+  SaljeLow <- ungroupIFR(IFR=salje[,3]/100,interval=salje[,1],
+                      midinterval=5,minage=minage,maxage=maxage,
+                      resolution=resolution)
+  
+  # Ungroup: 95% upper
+  SaljeUp <- ungroupIFR(IFR=salje[,4]/100,interval=salje[,1],
+                         midinterval=5,minage=minage,maxage=maxage,
+                         resolution=resolution)
   
   # Put into data frame
-  IFRs$Salje <- Salje
+  IFRs$Salje    <- Salje
+  IFRs$SaljeLow <- SaljeLow
+  IFRs$SaljeUp  <- SaljeUp
   
   
 ### Modi et al ######################################################  
@@ -65,14 +132,17 @@
                      header=FALSE, stringsAsFactors = FALSE)
   
   # Ungroup
-  Modi1 <- ungroupIFR(IFR=modi[,2]/100,interval=modi[,1],midinterval=5,
-                      minage=minage,maxage=maxage,resolution=resolution)
+  Modi1 <- ungroupIFR(IFR=modi[,2]/100,interval=modi[,1],
+                      midinterval=5,minage=minage,maxage=maxage,
+                      resolution=resolution)
   
-  Modi2 <- ungroupIFR(IFR=modi[,3]/100,interval=modi[,1],midinterval=5,
-                      minage=minage,maxage=maxage,resolution=resolution)
+  Modi2 <- ungroupIFR(IFR=modi[,3]/100,interval=modi[,1],
+                      midinterval=5,minage=minage,maxage=maxage,
+                      resolution=resolution)
   
-  Modi3 <- ungroupIFR(IFR=modi[,4]/100,interval=modi[,1],midinterval=5,
-                      minage=minage,maxage=maxage,resolution=resolution)
+  Modi3 <- ungroupIFR(IFR=modi[,4]/100,interval=modi[,1],
+                      midinterval=5,minage=minage,maxage=maxage,
+                      resolution=resolution)
   
   # Put into data frame
   IFRs$Modi1 <- Modi1
@@ -117,8 +187,9 @@
   UNdat <- UNdat %>% mutate(ex=as.numeric(ex))
 
   # Subset (always China & France & Italy for Verity and Salje and Modi)
+  countrylist2 <- c(countrylist,"France","China","Italy")
   UNdat <- UNdat %>% filter(Period=="2015-2020") %>% 
-                     filter(Country%in%c(countrylist,"France","China","Italy")) %>% 
+                     filter(Country%in%countrylist2) %>% 
                      select(Country,Age,ex)
   
   # Change to data.frame
@@ -153,15 +224,26 @@
     e_1 <- UNdat[UNdat$Country==i,"ex"]
   
     # Get ages
-    scaling <- match_e_x(e_1,e_2,interval=interval,maxage=maxage,minage=minage,
+    scaling <- match_e_x(e_1,e_2,interval=interval,
+                         maxage=maxage,minage=minage,
                          outputresolution=resolution)
     
-    # Predict
-    scaled <- ungroupIFR(IFR=verity[,2],interval=verity[,1],midinterval=5,
-                         age=scaling)
+    # Predict: Point estimate
+    scaled <- ungroupIFR(IFR=verity[,2],interval=verity[,1],
+                         midinterval=5,age=scaling)
+    
+    # Predict: 95% lower
+    scaled_low <- ungroupIFR(IFR=verity[,3],interval=verity[,1],
+                         midinterval=5,age=scaling)
+    
+    # Predict: 95% upper
+    scaled_up <- ungroupIFR(IFR=verity[,4],interval=verity[,1],
+                             midinterval=5,age=scaling)
 
     # Assign
-    IFRs[,paste0("Verity_",i)] <- scaled
+    IFRs[,paste0("Verity_",i)]    <- scaled
+    IFRs[,paste0("VerityLow_",i)] <- scaled_low
+    IFRs[,paste0("VerityUp_",i)]  <- scaled_up
     
   }
   
@@ -179,15 +261,26 @@
     e_1 <- UNdat[UNdat$Country==i,"ex"]
     
     # Get ages
-    scaling <- match_e_x(e_1,e_2,interval=interval,maxage=maxage,minage=minage,
+    scaling <- match_e_x(e_1,e_2,interval=interval,
+                         maxage=maxage,minage=minage,
                          outputresolution=resolution)
     
-    # Predict
-    scaled <- ungroupIFR(IFR=salje[,2]/100,interval=salje[,1],midinterval=5,
-                         age=scaling)
+    # Predict: Point estimate
+    scaled <- ungroupIFR(IFR=salje[,2]/100,interval=salje[,1],
+                         midinterval=5,age=scaling)
+    
+    # Predict: 95% lower
+    scaled_low <- ungroupIFR(IFR=salje[,3]/100,interval=salje[,1],
+                         midinterval=5,age=scaling)
+    
+    # Predict: 95% upper
+    scaled_up <- ungroupIFR(IFR=salje[,4]/100,interval=salje[,1],
+                         midinterval=5,age=scaling)
     
     # Assign
-    IFRs[,paste0("Salje_",i)] <- scaled
+    IFRs[,paste0("Salje_",i)]    <- scaled
+    IFRs[,paste0("SaljeLow_",i)] <- scaled_low
+    IFRs[,paste0("SaljeUp_",i)]  <- scaled_up
     
   }  
   
@@ -205,18 +298,19 @@
     e_1 <- UNdat[UNdat$Country==i,"ex"]
     
     # Get ages
-    scaling <- match_e_x(e_1,e_2,interval=interval,maxage=maxage,minage=minage,
+    scaling <- match_e_x(e_1,e_2,interval=interval,
+                         maxage=maxage,minage=minage,
                          outputresolution=resolution)
     
     # Predict
-    scaled1 <- ungroupIFR(IFR=modi[,2]/100,interval=modi[,1],midinterval=5,
-                         age=scaling)
+    scaled1 <- ungroupIFR(IFR=modi[,2]/100,interval=modi[,1],
+                          midinterval=5,age=scaling)
     
-    scaled2 <- ungroupIFR(IFR=modi[,3]/100,interval=modi[,1],midinterval=5,
-                          age=scaling)
+    scaled2 <- ungroupIFR(IFR=modi[,3]/100,interval=modi[,1],
+                          midinterval=5,age=scaling)
     
-    scaled3 <- ungroupIFR(IFR=modi[,4]/100,interval=modi[,1],midinterval=5,
-                          age=scaling)
+    scaled3 <- ungroupIFR(IFR=modi[,4]/100,interval=modi[,1],
+                          midinterval=5,age=scaling)
     
     # Assign
     IFRs[,paste0("Modi1_",i)] <- scaled1
@@ -239,15 +333,26 @@
     e_1 <- UNdat[UNdat$Country==i,"ex"]
     
     # Get ages
-    scaling <- match_e_x(e_1,e_2,interval=interval,maxage=maxage,minage=minage,
+    scaling <- match_e_x(e_1,e_2,interval=interval,
+                         maxage=maxage,minage=minage,
                          outputresolution=resolution)
     
-    # Predict
-    scaled <- ungroupIFR(IFR=verity[,2],interval=verity[,1],midinterval=5,
-                         age=scaling)
+    # Predict: Point estimate
+    scaled <- ungroupIFR(IFR=IFRs$Levin,interval=IFRs$Age,
+                         midinterval=0.25,age=scaling)
+    
+    # Predict: 95% lower
+    scaled_low <- ungroupIFR(IFR=IFRs$LevinLow,interval=IFRs$Age,
+                         midinterval=0.25,age=scaling)
+    
+    # Predict: 95% upper
+    scaled_up <- ungroupIFR(IFR=IFRs$LevinUp,interval=IFRs$Age,
+                         midinterval=0.25,age=scaling)
     
     # Assign
     IFRs[,paste0("Levin_",i)] <- scaled
+    IFRs[,paste0("LevinLow_",i)] <- scaled_low
+    IFRs[,paste0("LevinUp_",i)] <- scaled_up
     
   }
   
