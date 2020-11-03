@@ -125,6 +125,66 @@
   IFRs$SaljeUp  <- SaljeUp
   
   
+### O'Driscoll et al ################################################
+  
+  # Load
+  odriscoll <- read.table("Data/IFR-ODriscoll.txt",
+                           header=FALSE,stringsAsFactors = FALSE)
+  
+  # Ungroup: Point estimate
+  ODriscoll <- ungroupIFR(IFR=odriscoll[,2]/100,interval=odriscoll[,1],
+                      midinterval=c(rep(2.5,16),5),
+                      minage=minage,maxage=maxage,
+                      resolution=resolution)
+  
+  # Ungroup: 95% low
+  ODriscollLow <- ungroupIFR(IFR=odriscoll[,3]/100,interval=odriscoll[,1],
+                         midinterval=c(rep(2.5,16),5),
+                         minage=minage,maxage=maxage,
+                         resolution=resolution)
+  
+  # Ungroup: 95% upper
+  ODriscollUp <- ungroupIFR(IFR=odriscoll[,4]/100,interval=odriscoll[,1],
+                        midinterval=c(rep(2.5,16),5),
+                        minage=minage,maxage=maxage,
+                        resolution=resolution)
+  
+  # Put into data frame
+  IFRs$ODriscoll    <- ODriscoll
+  IFRs$ODriscollLow <- ODriscollLow
+  IFRs$ODriscollUp  <- ODriscollUp
+  
+  
+### Brazeau et al ###################################################
+  
+  # Load
+  brazeau <- read.table("Data/IFR-Brazeau.txt",
+                          header=FALSE,stringsAsFactors = FALSE)
+  
+  # Ungroup: Point estimate
+  Brazeau <- ungroupIFR(IFR=brazeau[,2]/100,interval=brazeau[,1],
+                        midinterval=c(rep(2.5,18),5),
+                        minage=minage,maxage=maxage,
+                        resolution=resolution)
+  
+  # Ungroup: 95% low
+  BrazeauLow <- ungroupIFR(IFR=brazeau[,3]/100,interval=brazeau[,1],
+                           midinterval=c(rep(2.5,18),5),
+                           minage=minage,maxage=maxage,
+                           resolution=resolution)
+  
+  # Ungroup: 95% upper
+  BrazeauUp <- ungroupIFR(IFR=brazeau[,4]/100,interval=brazeau[,1],
+                          midinterval=c(rep(2.5,18),5),
+                          minage=minage,maxage=maxage,
+                          resolution=resolution)
+  
+  # Put into data frame
+  IFRs$Brazeau    <- Brazeau
+  IFRs$BrazeauLow <- BrazeauLow
+  IFRs$BrazeauUp  <- BrazeauUp
+  
+  
 ### Modi et al ######################################################  
   
   # Load
