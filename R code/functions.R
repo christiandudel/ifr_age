@@ -11,6 +11,9 @@
   # Function
   ungroupIFR <- function(IFR,interval,midinterval=NULL,
                          age=NULL,resolution=1,maxage=NULL,minage=0) {
+    
+    # If IFR=0
+    IFR[IFR<0.00001] <- 0.00001
   
     # Transform
     lIFR <- log(IFR)
