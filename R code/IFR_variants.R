@@ -185,7 +185,40 @@
   IFRs$BrazeauUp  <- BrazeauUp
   
   
-### Modi et al ######################################################  
+### Acosta (Spain) ###################################################
+  
+  # Load
+  file <- "https://raw.githubusercontent.com/kikeacosta/ifr_age_spain/master/Output/spain_sex_age_ifr.csv"
+  acosta <- read_csv(file)
+  
+  # Keep only both sexes
+  acosta <- acosta %>% filter(Sex=="b")
+  
+  # Ungroup: Point estimate
+  Acosta <- ungroupIFR(IFR=acosta$IFR,interval=acosta$Age,
+                        midinterval=c(rep(2.5,18),5),
+                        minage=minage,maxage=maxage,
+                        resolution=resolution)
+  
+  # Ungroup: 95% low
+  AcostaLow <- ungroupIFR(IFR=acosta$IFR_l,interval=acosta$Age,
+                       midinterval=c(rep(2.5,18),5),
+                       minage=minage,maxage=maxage,
+                       resolution=resolution)
+  
+  # Ungroup: 95% upper
+  AcostaUp <- ungroupIFR(IFR=acosta$IFR_u,interval=acosta$Age,
+                          midinterval=c(rep(2.5,18),5),
+                          minage=minage,maxage=maxage,
+                          resolution=resolution)
+  
+  # Put into data frame
+  IFRs$Acosta    <- Acosta
+  IFRs$AcostaLow <- AcostaLow
+  IFRs$AcostaUp  <- AcostaUp
+  
+  
+### Modi et al (Italy) ##############################################
   
   # Load
   modi <- read.table("Data/IFR-Modi.txt",
@@ -380,6 +413,43 @@
   }    
   
   
+### Apply scaling for all countries, Acosta/Spain ###################
+  
+  # Reference data
+  e_2 <- UNdat[UNdat$Country=="Spain","ex"]
+  interval <- UNdat[UNdat$Country=="Spain","Age"]
+  
+  # Loop over all countries  
+  for(i in countrylist) {
+    
+    # Get data
+    e_1 <- UNdat[UNdat$Country==i,"ex"]
+    
+    # Get ages
+    scaling <- match_e_x(e_1,e_2,interval=interval,
+                         maxage=maxage,minage=minage,
+                         outputresolution=resolution)
+    
+    # Predict: Point estimate
+    scaled <- ungroupIFR(IFR=IFRs$Acosta,interval=IFRs$Age,
+                         midinterval=0.25,age=scaling)
+    
+    # Predict: 95% lower
+    scaled_low <- ungroupIFR(IFR=IFRs$AcostaLow,interval=IFRs$Age,
+                             midinterval=0.25,age=scaling)
+    
+    # Predict: 95% upper
+    scaled_up <- ungroupIFR(IFR=IFRs$AcostaUp,interval=IFRs$Age,
+                            midinterval=0.25,age=scaling)
+    
+    # Assign
+    IFRs[,paste0("Acosta_",i)]    <- scaled1
+    IFRs[,paste0("AcostaLow_",i)] <- scaled2
+    IFRs[,paste0("AcostaUp_",i)]  <- scaled3
+    
+  }    
+  
+  
 ### Apply scaling for all countries, Levin ##########################
   
   # Reference data
@@ -410,9 +480,9 @@
                          midinterval=0.25,age=scaling)
     
     # Assign
-    IFRs[,paste0("Levin_",i)] <- scaled
+    IFRs[,paste0("Levin_",i)]    <- scaled
     IFRs[,paste0("LevinLow_",i)] <- scaled_low
-    IFRs[,paste0("LevinUp_",i)] <- scaled_up
+    IFRs[,paste0("LevinUp_",i)]  <- scaled_up
     
   }
   
