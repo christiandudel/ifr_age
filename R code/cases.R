@@ -198,43 +198,43 @@
   
 ### Recent cases ####################################################
   
-  # Set locale to English (required for weekdays to work properly)
-  Sys.setlocale("LC_ALL","English")
-  
-  # Select Sundays
-  dat <- Dat %>% filter(weekdays(Date) == "Sunday") 
-  
-  # Restrict age
-  dat <- dat %>% mutate(Age=ifelse(Age>maxage,max(Counts$Age),Age))
-  
-  # Calculate weekly new cases/deaths
-  cases <- dat %>% 
-           # Sort by date
-           arrange(Country, Age, Date) %>% 
-           group_by(Country, Age) %>%
-           # Calculate new cases/deaths
-           mutate(NewCases = diff(c(0,Cases)),
-                  NewDeaths = diff(c(0,Deaths))) %>% 
-           ungroup() %>% 
-           # Keep most recent date
-           group_by(Country) %>% filter(Date==max(Date))
-  
-  # Aggregate
-  cases <- aggregate(NewCases~Country+Age,data=cases,sum)
-  
-  # Consistency check
-  cases <- cases %>% mutate(NewCases=ifelse(NewCases<0,0,NewCases))
-  
-  # Reshape
-  cases <- cases %>% spread(Country,NewCases)
-  
-  # Rename
-  names(cases)[2:dim(cases)[2]] <- paste(names(cases)[2:dim(cases)[2]],
-                                         "NewCases",
-                                         sep="_")
-  
-  # Merge
-  Counts <- inner_join(Counts,cases)
+  # # Set locale to English (required for weekdays to work properly)
+  # Sys.setlocale("LC_ALL","English")
+  # 
+  # # Select Sundays
+  # dat <- Dat %>% filter(weekdays(Date) == "Sunday") 
+  # 
+  # # Restrict age
+  # dat <- dat %>% mutate(Age=ifelse(Age>maxage,max(Counts$Age),Age))
+  # 
+  # # Calculate weekly new cases/deaths
+  # cases <- dat %>% 
+  #          # Sort by date
+  #          arrange(Country, Age, Date) %>% 
+  #          group_by(Country, Age) %>%
+  #          # Calculate new cases/deaths
+  #          mutate(NewCases = diff(c(0,Cases)),
+  #                 NewDeaths = diff(c(0,Deaths))) %>% 
+  #          ungroup() %>% 
+  #          # Keep most recent date
+  #          group_by(Country) %>% filter(Date==max(Date))
+  # 
+  # # Aggregate
+  # cases <- aggregate(NewCases~Country+Age,data=cases,sum)
+  # 
+  # # Consistency check
+  # cases <- cases %>% mutate(NewCases=ifelse(NewCases<0,0,NewCases))
+  # 
+  # # Reshape
+  # cases <- cases %>% spread(Country,NewCases)
+  # 
+  # # Rename
+  # names(cases)[2:dim(cases)[2]] <- paste(names(cases)[2:dim(cases)[2]],
+  #                                        "NewCases",
+  #                                        sep="_")
+  # 
+  # # Merge
+  # Counts <- inner_join(Counts,cases)
   
   
 ### Rescale and save ################################################
