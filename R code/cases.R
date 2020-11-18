@@ -12,8 +12,9 @@
   maxage <- 99
 
   # Countries to look at
-  countrylist <- c("Germany","Spain","Italy","France","Sweden",
-                   "China","Japan","Colombia","Brazil","USA")
+  load("Data/countries.rda")
+  # countrylist <- c("Germany","Spain","Italy","France","Sweden",
+  #                  "China","Japan","Colombia","Brazil","USA")
   
   # Data frame for results
   Prevalence <- data.frame(Age=seq(0,maxage))
@@ -69,7 +70,14 @@
   # Recode country
   UNpop$Country <- recode(UNpop$Country, 
                           "United States of America" = "USA",
-                          "United Kingdom"="UK")
+                          "Bolivia (Plurinational State of)" = "Bolivia",
+                          "Republic of Korea" = "South Korea",
+                          "Venezuela (Bolivarian Republic of)"= "Venezuela",
+                          "China, Taiwan Province of China" = "Taiwan",
+                          "State of Palestine" = "Palestine")
+  
+  # Remove countries which are not in UN data
+  countrylist <- countrylist[countrylist%in%unique(UNpop$Country)]
   
   # Select countries
   UNpop <- UNpop %>% filter(Country%in%c(countrylist))
@@ -97,7 +105,7 @@
   
   # Reshape again
   UNpop <- UNpop %>% spread(Country,Pop)
-  
+
   
 ### Combine population data with prevalence data ####################
   
@@ -133,7 +141,8 @@
     unzip(filename)
   }
   
-  # Load data 
+  # Load data
+  filename <- 'Data/Output_5.csv'
   Dat <- read_csv(filename,skip=3)
   
   # Restrict country
@@ -230,12 +239,24 @@
   
 ### Rescale and save ################################################
   
+  # Remove columns with 0s only
+  to_drop <- apply(Counts,2,function(x) all(x==0))
+  Counts <- Counts[,!to_drop]
+  
+  # Something to ponder: Remove columns with sum < 25
+  to_drop <- apply(Counts,2,function(x) sum(x)<25)
+  Counts <- Counts[,!to_drop]
+  
   # Scale to 1 
   Age <- Counts$Age
   Counts <- apply(Counts,2,function(x) x/sum(x))
   Counts <- as.data.frame(Counts)
   Counts$Age <- Age
   
+  # Better safe than sorry: Remove columns with NAs
+  to_drop <- apply(Counts,2,function(x) any(is.na(x)))
+  Counts <- Counts[,!to_drop]
+
   # Save
   write.csv(Counts,"Output/Counts.csv",row.names=F)
   

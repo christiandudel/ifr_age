@@ -17,8 +17,10 @@
   resolution <- 0.5
   
   # Countries to look at
-  countrylist <- c("Germany","Spain","Italy","France","Sweden",
-                   "China","Japan","Colombia","Brazil","USA")
+  load("Data/countries.rda")
+  # 
+  # countrylist <- c("Germany","Spain","Italy","France","Sweden",
+  #                  "China","Japan","Colombia","Brazil","USA")
   
   # Data frame for results
   IFRs <- data.frame(Age=seq(minage,maxage,by=resolution))
@@ -274,7 +276,14 @@
   # Recode country
   UNdat$Country <- recode(UNdat$Country, 
                           "United States of America" = "USA",
-                          "United Kingdom"="UK")
+                          "Bolivia (Plurinational State of)" = "Bolivia",
+                          "Republic of Korea" = "South Korea",
+                          "Venezuela (Bolivarian Republic of)"= "Venezuela",
+                          "China, Taiwan Province of China" = "Taiwan",
+                          "State of Palestine" = "Palestine")
+  
+  # Remove countries which are not in UN data
+  countrylist <- countrylist[countrylist%in%unique(UNdat$Country)]
   
   # Edit (gives an expected [?] error message)
   UNdat <- UNdat %>% mutate(ex=as.numeric(ex))

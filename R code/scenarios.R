@@ -36,6 +36,7 @@
   
   # Get scenarios
   IFR_scenarios <- names(IFRs)[-1]
+  IFR_always <- c(IFR_scenarios[1:27])
   n_IFRs <- length(IFR_scenarios)
   Count_scenarios <- names(Counts)[-1]
   
@@ -43,15 +44,23 @@
   for(i in Count_scenarios) {
     
     # Death counts? If so apply inverse method
-    death <- strsplit(i,split="_")
-    death <- death[[1]][2]
-    death <- death=="Deaths"
+    tmp     <- strsplit(i,split="_")
+    death   <- tmp[[1]][2]
+    death   <- death=="Deaths"
+    
+    # Get country and corresponding IFR scenarios
+    country <- tmp[[1]][1]
+    scenarios <- strsplit(IFR_scenarios,split="_")
+    scenarios <- lapply(scenarios, function(x) any(x==country) )
+    scenarios <- unlist(scenarios)
+    scenarios <- c(IFR_always,IFR_scenarios[scenarios])
+    n_IFRs <- length(scenarios)
     
     # If death counts...
     if(death) {
       
       # Inverse method
-      result <- apply(IFRs[,-1],2,
+      result <- apply(IFRs[,scenarios],2,
                       function(x) {
                         sum(Counts[,i])/sum(1/x*Counts[,i])
                         })
@@ -60,7 +69,7 @@
     } else {
       
       # Normal calculation
-      result <- apply(IFRs[,-1],2,
+      result <- apply(IFRs[,scenarios],2,
                       function(x) {
                         sum(x*Counts[,i]/sum(Counts[,i]))
                         })
