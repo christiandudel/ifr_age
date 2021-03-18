@@ -452,9 +452,9 @@
                             midinterval=0.25,age=scaling)
     
     # Assign
-    IFRs[,paste0("Acosta_",i)]    <- scaled1
-    IFRs[,paste0("AcostaLow_",i)] <- scaled2
-    IFRs[,paste0("AcostaUp_",i)]  <- scaled3
+    IFRs[,paste0("Acosta_",i)]    <- scaled
+    IFRs[,paste0("AcostaLow_",i)] <- scaled_low
+    IFRs[,paste0("AcostaUp_",i)]  <- scaled_up
     
   }    
   
