@@ -446,5 +446,5 @@
   Check <- Check %>% mutate(Ratio=m/f*100-100,Diff=(m-f)*100)
   
   # Quick plot
-  dotchart(Check$Ratio,labels=Check$Country,xlab="Rel. diff. in %",
+  dotchart(Check$Diff,labels=Check$Country,xlab="Abs. diff. in percentage points",
            panel.first=abline(v=0,col="grey50",lty=2))
