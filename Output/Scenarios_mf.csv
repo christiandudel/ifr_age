@@ -65,12 +65,24 @@
 "Colombia","m","Deaths","Central",0.00375203722341248
 "Colombia","m","Deaths","Low",0.00463830624453487
 "Colombia","m","Deaths","Up",0.003048856127914
+"Croatia","f","Deaths","Central",0.00175183171284382
+"Croatia","f","Deaths","Low",0.00218954616900381
+"Croatia","f","Deaths","Up",0.00142872728500741
+"Croatia","m","Deaths","Central",0.00168513778020249
+"Croatia","m","Deaths","Low",0.00229329436848432
+"Croatia","m","Deaths","Up",0.00130976027581494
 "Cuba","f","Deaths","Central",0.0212387776131657
 "Cuba","f","Deaths","Low",0.0258591102913751
 "Cuba","f","Deaths","Up",0.0174960844628568
 "Cuba","m","Deaths","Central",0.00545657633551569
 "Cuba","m","Deaths","Low",0.00661928042817314
 "Cuba","m","Deaths","Up",0.00460391850480183
+"Cyprus","f","Deaths","Central",0.00107699093388701
+"Cyprus","f","Deaths","Low",0.0013627836705099
+"Cyprus","f","Deaths","Up",0.000852747366493797
+"Cyprus","m","Deaths","Central",0.00984580057418463
+"Cyprus","m","Deaths","Low",0.0116673264760281
+"Cyprus","m","Deaths","Up",0.00830486285769528
 "Czechia","f","Deaths","Central",0.0162596882588132
 "Czechia","f","Deaths","Low",0.0196890958425788
 "Czechia","f","Deaths","Up",0.0135950003735553
@@ -125,6 +137,12 @@
 "Greece","m","Deaths","Central",NA
 "Greece","m","Deaths","Low",NA
 "Greece","m","Deaths","Up",NA
+"Hungary","f","Deaths","Central",0.0271390574406648
+"Hungary","f","Deaths","Low",0.033087469334097
+"Hungary","f","Deaths","Up",0.0220351267332286
+"Hungary","m","Deaths","Central",0.0326171967879472
+"Hungary","m","Deaths","Low",0.0401017492981305
+"Hungary","m","Deaths","Up",0.026897977457767
 "Iceland","f","Deaths","Central",0.0145438608666372
 "Iceland","f","Deaths","Low",0.0176092459330032
 "Iceland","f","Deaths","Up",0.0122239782917214
@@ -155,18 +173,48 @@
 "Italy","m","Deaths","Central",0.0162229293103027
 "Italy","m","Deaths","Low",0.0199450322853785
 "Italy","m","Deaths","Up",0.0132956429408455
+"Jordan","f","Deaths","Central",0.00317324632862527
+"Jordan","f","Deaths","Low",0.00383281898602844
+"Jordan","f","Deaths","Up",0.00264532713551499
+"Jordan","m","Deaths","Central",0.00457762364187678
+"Jordan","m","Deaths","Low",0.00578492925250825
+"Jordan","m","Deaths","Up",0.0036665732630648
 "Kenya","f","Deaths","Central",0.000938482112784868
 "Kenya","f","Deaths","Low",0.00114869003875439
 "Kenya","f","Deaths","Up",0.000752660071516686
 "Kenya","m","Deaths","Central",0.00143542054444991
 "Kenya","m","Deaths","Low",0.00180594045081634
 "Kenya","m","Deaths","Up",0.00114691125016031
+"Latvia","f","Deaths","Central",0.0227225698231049
+"Latvia","f","Deaths","Low",0.027808658911854
+"Latvia","f","Deaths","Up",0.0185286362885866
+"Latvia","m","Deaths","Central",0.044539126523575
+"Latvia","m","Deaths","Low",0.0543837916952104
+"Latvia","m","Deaths","Up",0.0365194591023162
+"Lithuania","f","Deaths","Central",0.000686273465595947
+"Lithuania","f","Deaths","Low",0.000854329847661302
+"Lithuania","f","Deaths","Up",0.000560370177416631
+"Lithuania","m","Deaths","Central",0.000733926343265587
+"Lithuania","m","Deaths","Low",0.000909957638139562
+"Lithuania","m","Deaths","Up",0.000588103139027022
+"Luxembourg","f","Deaths","Central",0.00174715936233111
+"Luxembourg","f","Deaths","Low",0.00226653049307108
+"Luxembourg","f","Deaths","Up",0.00133237017692858
+"Luxembourg","m","Deaths","Central",0.00362799294436075
+"Luxembourg","m","Deaths","Low",0.00454475447850105
+"Luxembourg","m","Deaths","Up",0.00292514376588743
 "Malawi","f","Deaths","Central",0.00154349874333793
 "Malawi","f","Deaths","Low",0.00182035427467436
 "Malawi","f","Deaths","Up",0.00131185522463913
 "Malawi","m","Deaths","Central",0.00480418400490615
 "Malawi","m","Deaths","Low",0.00579369510078508
 "Malawi","m","Deaths","Up",0.00399212675901585
+"Malta","f","Deaths","Central",0.000680767948468154
+"Malta","f","Deaths","Low",0.000941541414149587
+"Malta","f","Deaths","Up",0.000471968419368306
+"Malta","m","Deaths","Central",0.000531477602135618
+"Malta","m","Deaths","Low",0.000768719420431002
+"Malta","m","Deaths","Up",0.000414131544765582
 "Mexico","f","Deaths","Central",0.00221014966707693
 "Mexico","f","Deaths","Low",0.00266550327530555
 "Mexico","f","Deaths","Up",0.00184397867286203
@@ -221,6 +269,12 @@
 "Peru","m","Deaths","Central",0.00278425446913886
 "Peru","m","Deaths","Low",0.00348275779467314
 "Peru","m","Deaths","Up",0.00225041056346445
+"Poland","f","Deaths","Central",0.0044320935746437
+"Poland","f","Deaths","Low",0.00543562107120001
+"Poland","f","Deaths","Up",0.00366044170333985
+"Poland","m","Deaths","Central",0.00371373445918243
+"Poland","m","Deaths","Low",0.00486571146636487
+"Poland","m","Deaths","Up",0.0029339612543639
 "Portugal","f","Deaths","Central",NA
 "Portugal","f","Deaths","Low",NA
 "Portugal","f","Deaths","Up",NA
@@ -233,6 +287,12 @@
 "Romania","m","Deaths","Central",0.00302110600686394
 "Romania","m","Deaths","Low",0.00372611606302281
 "Romania","m","Deaths","Up",0.00245792450738402
+"Slovakia","f","Deaths","Central",0.00176492809198044
+"Slovakia","f","Deaths","Low",0.00220068448602744
+"Slovakia","f","Deaths","Up",0.00143489240984062
+"Slovakia","m","Deaths","Central",0.00181890996332621
+"Slovakia","m","Deaths","Low",0.00237725788320221
+"Slovakia","m","Deaths","Up",0.00143427801100892
 "South Korea","f","Deaths","Central",0.0102939484443609
 "South Korea","f","Deaths","Low",0.0124347072213916
 "South Korea","f","Deaths","Up",0.00855689150263991
@@ -323,6 +383,12 @@
 "Austria","m","Cases","Central",0.0196613645346166
 "Austria","m","Cases","Low",0.0298160788311967
 "Austria","m","Cases","Up",0.0132411390215198
+"Benin","f","Cases","Central",0.00720884314460408
+"Benin","f","Cases","Low",0.00958563260053489
+"Benin","f","Cases","Up",0.00440418621087489
+"Benin","m","Cases","Central",0.0117762927238423
+"Benin","m","Cases","Low",0.0154471799820525
+"Benin","m","Cases","Up",0.00774779395062498
 "Bolivia","f","Cases","Central",0.013261785235778
 "Bolivia","f","Cases","Low",0.0190905735111939
 "Bolivia","f","Cases","Up",0.0095738027528144
@@ -347,6 +413,12 @@
 "Burundi","m","Cases","Central",0.00486522101962954
 "Burundi","m","Cases","Low",0.0053345483323863
 "Burundi","m","Cases","Up",0.00410332518517772
+"Cambodia","f","Cases","Central",0.00350838007269048
+"Cambodia","f","Cases","Low",0.00454786695692513
+"Cambodia","f","Cases","Up",0.00268644689422212
+"Cambodia","m","Cases","Central",0.00507230141542616
+"Cambodia","m","Cases","Low",0.00659734759240491
+"Cambodia","m","Cases","Up",0.00396082335134927
 "Cameroon","f","Cases","Central",0.0155043317720645
 "Cameroon","f","Cases","Low",0.0209266573683121
 "Cameroon","f","Cases","Up",0.0100261256221537
@@ -383,6 +455,18 @@
 "Colombia","m","Cases","Central",0.0107827656834434
 "Colombia","m","Cases","Low",0.0150850386260781
 "Colombia","m","Cases","Up",0.00786261500762606
+"Croatia","f","Cases","Central",0.0230333840866187
+"Croatia","f","Cases","Low",0.0338273385831339
+"Croatia","f","Cases","Up",0.0153720916049574
+"Croatia","m","Cases","Central",0.0247814678833754
+"Croatia","m","Cases","Low",0.0363976509587788
+"Croatia","m","Cases","Up",0.0171346948449789
+"Cyprus","f","Cases","Central",0.0122496149344843
+"Cyprus","f","Cases","Low",0.017386889364329
+"Cyprus","f","Cases","Up",0.00826988925478168
+"Cyprus","m","Cases","Central",0.0149116016762036
+"Cyprus","m","Cases","Low",0.0218850380204915
+"Cyprus","m","Cases","Up",0.0102657423682961
 "Czechia","f","Cases","Central",0.0191498332025441
 "Czechia","f","Cases","Low",0.0280115343060186
 "Czechia","f","Cases","Up",0.0128856690875321
@@ -407,6 +491,12 @@
 "Ecuador","m","Cases","Central",0.0156364346523407
 "Ecuador","m","Cases","Low",0.0222328993453555
 "Ecuador","m","Cases","Up",0.0112092074376131
+"Equatorial Guinea","f","Cases","Central",0.00689610824224403
+"Equatorial Guinea","f","Cases","Low",0.00917350952623453
+"Equatorial Guinea","f","Cases","Up",0.00505386001981186
+"Equatorial Guinea","m","Cases","Central",0.00912539938286223
+"Equatorial Guinea","m","Cases","Low",0.011745103050154
+"Equatorial Guinea","m","Cases","Up",0.00715112466999546
 "Estonia","f","Cases","Central",0.018232134471611
 "Estonia","f","Cases","Low",0.0261592894473074
 "Estonia","f","Cases","Up",0.0124049325249546
@@ -491,6 +581,12 @@
 "Japan","m","Cases","Central",0.0141844116468609
 "Japan","m","Cases","Low",0.0212197310409322
 "Japan","m","Cases","Up",0.00979155152374432
+"Jordan","f","Cases","Central",0.00665947501165044
+"Jordan","f","Cases","Low",0.00933120080122016
+"Jordan","f","Cases","Up",0.0047392023263148
+"Jordan","m","Cases","Central",0.00991540867383905
+"Jordan","m","Cases","Low",0.0143198329167455
+"Jordan","m","Cases","Up",0.00700858838042881
 "Kazakhstan","f","Cases","Central",0.0080590621783876
 "Kazakhstan","f","Cases","Low",0.0114475451426686
 "Kazakhstan","f","Cases","Up",0.00570767464279374
@@ -503,18 +599,54 @@
 "Kenya","m","Cases","Central",0.00944789954468617
 "Kenya","m","Cases","Low",0.0127086275811923
 "Kenya","m","Cases","Up",0.00680529272164993
+"Latvia","f","Cases","Central",0.0137275548222566
+"Latvia","f","Cases","Low",0.0198740139455174
+"Latvia","f","Cases","Up",0.00978846785060451
+"Latvia","m","Cases","Central",0.0157847672931347
+"Latvia","m","Cases","Low",0.0220700614737884
+"Latvia","m","Cases","Up",0.011753642056093
+"Lithuania","f","Cases","Central",0.0176337500874627
+"Lithuania","f","Cases","Low",0.0260228992305163
+"Lithuania","f","Cases","Up",0.0124117610116095
+"Lithuania","m","Cases","Central",0.0183296817888403
+"Lithuania","m","Cases","Low",0.0256566225815054
+"Lithuania","m","Cases","Up",0.0135016824268706
+"Luxembourg","f","Cases","Central",0.020645449686473
+"Luxembourg","f","Cases","Low",0.0290953314203902
+"Luxembourg","f","Cases","Up",0.0130001378487084
+"Luxembourg","m","Cases","Central",0.0162192482225748
+"Luxembourg","m","Cases","Low",0.0243700116649339
+"Luxembourg","m","Cases","Up",0.0107522645400422
 "Malawi","f","Cases","Central",0.0060151141211492
 "Malawi","f","Cases","Low",0.00806944016097937
 "Malawi","f","Cases","Up",0.00413807817872617
 "Malawi","m","Cases","Central",0.0119178093796629
 "Malawi","m","Cases","Low",0.0160070737608916
 "Malawi","m","Cases","Up",0.00824011531530965
+"Maldives","f","Cases","Central",0.00154140418211945
+"Maldives","f","Cases","Low",0.00196701129175466
+"Maldives","f","Cases","Up",0.00120765540437305
+"Maldives","m","Cases","Central",NA
+"Maldives","m","Cases","Low",NA
+"Maldives","m","Cases","Up",NA
 "Mali","f","Cases","Central",0.0375391489824456
 "Mali","f","Cases","Low",0.0530343987437201
 "Mali","f","Cases","Up",0.0237565593347945
 "Mali","m","Cases","Central",0.0436987991578131
 "Mali","m","Cases","Low",0.0618023425161987
 "Mali","m","Cases","Up",0.0275184429607217
+"Malta","f","Cases","Central",0.0172777966373692
+"Malta","f","Cases","Low",0.0261554613403882
+"Malta","f","Cases","Up",0.0115603498116067
+"Malta","m","Cases","Central",0.0146720264884971
+"Malta","m","Cases","Low",0.0218719505042009
+"Malta","m","Cases","Up",0.00991073437624275
+"Mauritania","f","Cases","Central",0.0256497329194281
+"Mauritania","f","Cases","Low",0.0352611943282018
+"Mauritania","f","Cases","Up",0.0156624011378195
+"Mauritania","m","Cases","Central",0.0150828959818458
+"Mauritania","m","Cases","Low",0.0206425222268224
+"Mauritania","m","Cases","Up",0.0103764640947425
 "Mexico","f","Cases","Central",0.00783433816623025
 "Mexico","f","Cases","Low",0.0106403263296507
 "Mexico","f","Cases","Up",0.00579517211973393
@@ -527,6 +659,12 @@
 "Mozambique","m","Cases","Central",0.0133138635583807
 "Mozambique","m","Cases","Low",0.0180655403418533
 "Mozambique","m","Cases","Up",0.00954698665419702
+"Namibia","f","Cases","Central",0.00342816973761994
+"Namibia","f","Cases","Low",0.00451862960878262
+"Namibia","f","Cases","Up",0.002647150584693
+"Namibia","m","Cases","Central",0.00726767409866612
+"Namibia","m","Cases","Low",0.00951203235300246
+"Namibia","m","Cases","Up",0.00569974720494755
 "Netherlands","f","Cases","Central",0.0194930084165895
 "Netherlands","f","Cases","Low",0.0282080428347089
 "Netherlands","f","Cases","Up",0.0129387455423834
@@ -551,6 +689,12 @@
 "Panama","m","Cases","Central",0.00634714381120504
 "Panama","m","Cases","Low",0.00871444846199987
 "Panama","m","Cases","Up",0.004785081677702
+"Papua New Guinea","f","Cases","Central",0.0113905818158914
+"Papua New Guinea","f","Cases","Low",0.0152912113219404
+"Papua New Guinea","f","Cases","Up",0.00723416670405602
+"Papua New Guinea","m","Cases","Central",0.0119783841995117
+"Papua New Guinea","m","Cases","Low",0.0156233745909768
+"Papua New Guinea","m","Cases","Up",0.0086101540042431
 "Paraguay","f","Cases","Central",0.00590833076285008
 "Paraguay","f","Cases","Low",0.00818198901406422
 "Paraguay","f","Cases","Up",0.00434590212335369
@@ -569,6 +713,12 @@
 "Philippines","m","Cases","Central",0.0116408799268618
 "Philippines","m","Cases","Low",0.0162204775917103
 "Philippines","m","Cases","Up",0.00860948963976019
+"Poland","f","Cases","Central",0.014983172111562
+"Poland","f","Cases","Low",0.0212683884785164
+"Poland","f","Cases","Up",0.0106718991354936
+"Poland","m","Cases","Central",0.0214303986445337
+"Poland","m","Cases","Low",0.0302928318849413
+"Poland","m","Cases","Up",0.015627191515401
 "Portugal","f","Cases","Central",NA
 "Portugal","f","Cases","Low",NA
 "Portugal","f","Cases","Up",NA
@@ -587,6 +737,18 @@
 "Senegal","m","Cases","Central",0.0185213918867471
 "Senegal","m","Cases","Low",0.0281806000930958
 "Senegal","m","Cases","Up",0.0119624265239193
+"Sierra Leone","f","Cases","Central",0.0170193188890844
+"Sierra Leone","f","Cases","Low",0.0233641957897332
+"Sierra Leone","f","Cases","Up",0.0106922352483485
+"Sierra Leone","m","Cases","Central",0.0242616418245476
+"Sierra Leone","m","Cases","Low",0.0338594447172853
+"Sierra Leone","m","Cases","Up",0.0159749603859621
+"Slovakia","f","Cases","Central",0.0165005989422387
+"Slovakia","f","Cases","Low",0.0241062633660539
+"Slovakia","f","Cases","Up",0.0111871794724874
+"Slovakia","m","Cases","Central",0.0150063735843338
+"Slovakia","m","Cases","Low",0.0212293007730522
+"Slovakia","m","Cases","Up",0.0109032701165159
 "Slovenia","f","Cases","Central",0.0279769555330028
 "Slovenia","f","Cases","Low",0.0405181107176559
 "Slovenia","f","Cases","Up",0.0182574799246333
@@ -623,6 +785,12 @@
 "Taiwan","m","Cases","Central",0.00683126282902271
 "Taiwan","m","Cases","Low",0.00953619671191643
 "Taiwan","m","Cases","Up",0.00508276048163466
+"Thailand","f","Cases","Central",0.00223340082090744
+"Thailand","f","Cases","Low",0.0029096260989582
+"Thailand","f","Cases","Up",0.00172145745932082
+"Thailand","m","Cases","Central",0.00568155985419087
+"Thailand","m","Cases","Low",0.00719439497325031
+"Thailand","m","Cases","Up",0.00455528103785272
 "Togo","f","Cases","Central",0.0135250250635788
 "Togo","f","Cases","Low",0.0190511091035141
 "Togo","f","Cases","Up",0.00938172578755164

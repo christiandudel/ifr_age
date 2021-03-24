@@ -2,6 +2,10 @@
 
 if(!file.exists("Data/countries.rda")) {
 
+  # Packages
+  library(tidyverse)
+  library(httr)
+  
   # Source
   web <- 'https://osf.io/7tnfh/download'
   
