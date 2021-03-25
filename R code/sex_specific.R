@@ -241,6 +241,10 @@
   tmp[tmp>1] <- 1
   IFRs[,-1] <- tmp
   
+  ### Save
+  write.csv(IFRs,"Output/IFRs_EA_by_sex.csv",row.names=F)
+  
+  
   
 ### Get counts ######################################################
 
