@@ -193,23 +193,28 @@
   file <- "https://raw.githubusercontent.com/kikeacosta/ifr_age_spain/master/Output/spain_sex_age_ifr.csv"
   acosta <- read_csv(file)
   
+  # Reshape
+  acosta <- pivot_wider(acosta,id_cols=c(Sex,Age),
+                        names_from=Estimate,
+                        values_from=IFR)
+  
   # Keep only both sexes
-  acosta <- acosta %>% filter(Sex=="b")
+  acosta <- acosta %>% filter(Sex=="t")
   
   # Ungroup: Point estimate
-  Acosta <- ungroupIFR(IFR=acosta$IFR,interval=acosta$Age,
+  Acosta <- ungroupIFR(IFR=acosta$Central,interval=acosta$Age,
                         midinterval=c(rep(2.5,18),5),
                         minage=minage,maxage=maxage,
                         resolution=resolution)
   
   # Ungroup: 95% low
-  AcostaLow <- ungroupIFR(IFR=acosta$IFR_l,interval=acosta$Age,
+  AcostaLow <- ungroupIFR(IFR=acosta$Lower,interval=acosta$Age,
                        midinterval=c(rep(2.5,18),5),
                        minage=minage,maxage=maxage,
                        resolution=resolution)
   
   # Ungroup: 95% upper
-  AcostaUp <- ungroupIFR(IFR=acosta$IFR_u,interval=acosta$Age,
+  AcostaUp <- ungroupIFR(IFR=acosta$Upper,interval=acosta$Age,
                           midinterval=c(rep(2.5,18),5),
                           minage=minage,maxage=maxage,
                           resolution=resolution)
