@@ -280,7 +280,7 @@
   
   # Recode country
   UNdat$Country <- recode(UNdat$Country, 
-                          "Republic of of Moldova" = "Moldova",
+                          "Republic of Moldova" = "Moldova",
                           "United States of America" = "USA",
                           "Bolivia (Plurinational State of)" = "Bolivia",
                           "Republic of Korea" = "South Korea",

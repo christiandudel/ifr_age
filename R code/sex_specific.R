@@ -121,6 +121,7 @@
 
   # Recode country
   UNdat_f$Country <- recode(UNdat_f$Country, 
+                            "Republic of Moldova" = "Moldova",
                           "United States of America" = "USA",
                           "Bolivia (Plurinational State of)" = "Bolivia",
                           "Republic of Korea" = "South Korea",
@@ -129,6 +130,7 @@
                           "State of Palestine" = "Palestine")
   
   UNdat_m$Country <- recode(UNdat_m$Country, 
+                            "Republic of Moldova" = "Moldova",
                             "United States of America" = "USA",
                             "Bolivia (Plurinational State of)" = "Bolivia",
                             "Republic of Korea" = "South Korea",

@@ -233,6 +233,12 @@
 "Mexico","m","Deaths","Central",0.00313752303925676
 "Mexico","m","Deaths","Low",0.00388916900085139
 "Mexico","m","Deaths","Up",0.00257271087009841
+"Moldova","f","Deaths","Central",0.00648086557996628
+"Moldova","f","Deaths","Low",0.00775217307977079
+"Moldova","f","Deaths","Up",0.00542366649523644
+"Moldova","m","Deaths","Central",0.0205309133356908
+"Moldova","m","Deaths","Low",0.0250110798132189
+"Moldova","m","Deaths","Up",0.0170620266543047
 "Nepal","f","Deaths","Central",0.000576829471906129
 "Nepal","f","Deaths","Low",0.000716713293258127
 "Nepal","f","Deaths","Up",0.000475995738556134
@@ -653,6 +659,12 @@
 "Mexico","m","Cases","Central",0.0137086298005524
 "Mexico","m","Cases","Low",0.0187552828181439
 "Mexico","m","Cases","Up",0.0102344660656019
+"Moldova","f","Cases","Central",0.0150849568600202
+"Moldova","f","Cases","Low",0.0204771608317778
+"Moldova","f","Cases","Up",0.0111370471694781
+"Moldova","m","Cases","Central",0.0353822987428938
+"Moldova","m","Cases","Low",0.0498095089572875
+"Moldova","m","Cases","Up",0.0256023942537787
 "Mozambique","f","Cases","Central",0.00586033768650707
 "Mozambique","f","Cases","Low",0.00787253961758853
 "Mozambique","f","Cases","Up",0.00427856998201764
